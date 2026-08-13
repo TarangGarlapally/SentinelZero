@@ -1,0 +1,43 @@
+{
+  "rules": [
+    {
+      "name": "Stealc_Infostealer_Loader",
+      "severity": "HIGH",
+      "patterns": [
+        "mod-stealc.py",
+        "149.255.35.152",
+        "sodiumchloride",
+        "Kx9mQ2vL7pR4nZ8w"
+      ]
+    },
+    {
+      "name": "Lumma_Stealer_Payload",
+      "severity": "HIGH",
+      "patterns": [
+        "c2_domain",
+        "api/v1/r/",
+        "chrome_user_data",
+        "sqlite3_open"
+      ]
+    },
+    {
+      "name": "RedLine_Stealer_Collector",
+      "severity": "HIGH",
+      "patterns": [
+        "SELECT * FROM logins",
+        "SELECT * FROM cookies",
+        "CryptUnprotectData",
+        "ip-api.com/json"
+      ]
+    },
+    {
+      "name": "Raccoon_Stealer_Exfiltrator",
+      "severity": "HIGH",
+      "patterns": [
+        "sqlite3_column_text",
+        "gate/log.php",
+        "wallet.dat"
+      ]
+    }
+  ]
+}

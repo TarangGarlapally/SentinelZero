@@ -1,4 +1,4 @@
-# Sentinel Zero - Proactive System Guard
+# Sentinel Zero - Proactive System Guard v1.1.0
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Python: 3.10+](https://img.shields.io/badge/Python-3.10%2B-brightgreen.svg)](https://www.python.org/)
@@ -11,13 +11,16 @@ Unlike traditional reactive antivirus scanners, **Sentinel Zero** places an **in
 
 ---
 
-## Key Features
+## Key Features in v1.1.0
 
 * 🔒 **Universal Real-Time File Locking**: Intercepts file creation across all browsers (Chrome, Edge, Brave, Firefox) and applies native Windows API locks (`0` share mode). No application can touch or execute the file while scanning is active (scan time: 50ms – 400ms).
+* 🎯 **Signature Threat Engine**: Scans files against threat rules (`rules/infostealers.json`) for known infostealers (**Stealc, Lumma, RedLine, Raccoon, Vidar, Rhadamanthys**).
+* 🌐 **VirusTotal Hash Reputation API**: Optional VirusTotal API v3 integration to instantly verify SHA-256 hashes against 70+ antivirus engines.
 * 🎨 **3D Asset & `.blend` Script Inspector**: Parses Blender `.blend` binary structures (`DNA1` / `TXT` blocks) directly in memory, detecting embedded auto-executing Python payloads (`urllib`, `requests`, `exec()`, `base64`, C2 IP literals) before Blender ever touches the file.
 * 📦 **Archive Payload Decompressor**: Recursively unpacks `.zip`, `.rar`, `.7z`, `.tar`, and `.iso` archives in memory to detect disguised executables, hidden scripts, double extensions (e.g. `invoice.pdf.exe`), and fake `Blender.exe` runtimes.
 * 🛡️ **Browser Cookie Vault Guard**: Continuously monitors Chrome, Edge, Brave, and Firefox `Cookies` database files and immediately terminates any non-browser process attempting to harvest session tokens.
-* ⚡ **Portable PE Executable Analyzer**: Evaluates Shannon entropy on `.exe` / `.dll` files to flag packed stealers (Lumma, Stealc, Vidar) and audits API import tables for credential harvesting calls (`CryptUnprotectData`, `sqlite3_open`).
+* ⚡ **Portable PE Executable Analyzer**: Evaluates Shannon entropy on `.exe` / `.dll` files to flag packed stealers and audits API import tables for credential harvesting calls (`CryptUnprotectData`, `sqlite3_open`).
+* 💻 **CLI Control Center**: Command Line Interface for quick system diagnostics, folder scanning, and autostart management (`python cli.py status`).
 * 🖥️ **Windows Boot Autostart & Tray UI**: Runs silently in the Windows System Tray with dark-mode styling, native toast notifications, and automatic Windows startup via Registry integration.
 
 ---
@@ -38,13 +41,13 @@ Unlike traditional reactive antivirus scanners, **Sentinel Zero** places an **in
                       │    Universal Threat Router    │
                       └───────────────┬───────────────┘
                                       │
-         ┌──────────────────┬─────────┴─────────┬──────────────────┐
-         ▼                  ▼                   ▼                  ▼
-  [ PE Scanner ]   [ Archive Scanner ]   [ Blend Scanner ]   [ Script Scanner ]
-  - Entropy        - Double Extension    - DNA1/TXT Blocks   - AST Heuristics
-  - Stealer APIs   - Disguised Exes      - Net / Exec Calls  - C2 IP Literals
-         │                  │                   │                  │
-         └──────────────────┴─────────┬─────────┴──────────────────┘
+  ┌─────────────────┬─────────────────┼─────────────────┬─────────────────┐
+  ▼                 ▼                 ▼                 ▼                 ▼
+[ PE Scanner ]  [ Archive ]      [ Blend Scanner ] [ Script Scanner ] [ Signature Rules ]
+- Entropy       - Double Ext     - DNA1/TXT Blocks - AST Heuristics   - Stealc / Lumma
+- Stealer APIs  - Disguised Exes - Net/Exec Calls  - C2 IP Literals   - RedLine / Raccoon
+  │                 │                 │                 │                 │
+  └─────────────────┴─────────────────┼─────────────────┴─────────────────┘
                                       │
                         ┌─────────────┴─────────────┐
                         ▼                           ▼
@@ -78,44 +81,16 @@ copy config.example.json config.json
 python app.py
 ```
 
----
-
-## Project Structure
-
-```
-SentinelZero/
-├── app.py                      # Main daemon launcher & background service
-├── config.json                 # Active user configuration
-├── config.example.json         # Template configuration file
-├── requirements.txt            # Python dependencies
-├── core/
-│   ├── watchdog_engine.py       # Universal real-time filesystem monitor
-│   ├── file_locker.py           # Windows API exclusive lock & quarantine vault
-│   ├── cookie_guard.py          # Browser cookie access watchdog & PID blocker
-│   └── scanners/
-│       ├── universal_scanner.py # Main threat router for ANY file extension
-│       ├── archive_scanner.py   # Recursive archive inspector (.zip, .rar, .7z)
-│       ├── pe_scanner.py        # Executable binary analyzer (Entropy & Imports)
-│       ├── script_scanner.py    # Multi-language static analyzer (.py, .ps1, .bat)
-│       ├── blend_scanner.py     # Blender .blend embedded script parser
-│       └── doc_scanner.py       # Document macro & PDF exploit inspector
-├── gui/
-│   ├── tray_gui.py             # System Tray UI & Windows Toast notification manager
-│   └── quarantine_window.py    # Dark-mode Quarantine Vault GUI
-├── utils/
-│   ├── autostart.py            # Windows Boot autostart manager
-│   └── logger.py               # Security audit logging engine
-└── Quarantine/                 # Isolated vault for blocked threats
-```
-
----
-
-## Testing & Verification
-
-Run the built-in automated test suite to verify file locking, script detection, and registry autostart:
-
+### CLI Control Center
 ```bash
-python test_verification.py
+# Check protection status
+python cli.py status
+
+# Scan a file or directory
+python cli.py scan C:\path\to\file_or_folder
+
+# Enable/Disable Windows Boot Autostart
+python cli.py autostart enable
 ```
 
 ---
