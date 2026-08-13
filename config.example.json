@@ -1,0 +1,25 @@
+{
+  "app_name": "Sentinel Zero",
+  "version": "1.0.0",
+  "autostart_enabled": true,
+  "quarantine_dir": "Quarantine",
+  "watch_directories": [
+    "%USERPROFILE%\\Downloads",
+    "%USERPROFILE%\\Desktop",
+    "%USERPROFILE%\\Projects",
+    "%LOCALAPPDATA%\\Temp"
+  ],
+  "cookie_guard": {
+    "enabled": true,
+    "browser_cookie_paths": [
+      "%LOCALAPPDATA%\\Google\\Chrome\\User Data\\Default\\Cookies",
+      "%LOCALAPPDATA%\\BraveSoftware\\Brave-Browser\\User Data\\Default\\Cookies",
+      "%LOCALAPPDATA%\\Microsoft\\Edge\\User Data\\Default\\Cookies"
+    ]
+  },
+  "scan_options": {
+    "max_archive_depth": 3,
+    "high_entropy_threshold": 7.2,
+    "lock_timeout_seconds": 30
+  }
+}

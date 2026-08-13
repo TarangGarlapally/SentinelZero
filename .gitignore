@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+ENV/
+
+# Sentinel Zero Runtime & Data
+Quarantine/*
+!Quarantine/.gitkeep
+config.json
+*.log
+*.tmp
+*.quarantine
+
+# IDE & OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+*.swp
+
+# Build & Distribution
+build/
+dist/
+*.egg-info/
