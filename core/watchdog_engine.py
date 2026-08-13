@@ -3,6 +3,7 @@ import time
 import threading
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
+from .scan_history import scan_history
 
 class DownloadHandler(FileSystemEventHandler):
     """Event handler that locks, scans, and unlocks/quarantines any newly created or renamed file."""
@@ -37,13 +38,15 @@ class DownloadHandler(FileSystemEventHandler):
         is_clean, result_msg = self.scanner.scan_file(filepath)
 
         if is_clean:
-            # 3A. Unlock clean file
+            # 3A. Unlock clean file & record in history
             self.locker.unlock_file(filepath)
+            scan_history.record_scan(filepath, "SAFE", result_msg)
             if self.notify_callback:
                 self.notify_callback("✅ File Verified Safe", f"Unlocked: {filename}\n({result_msg})")
         else:
-            # 3B. Quarantine threat file
+            # 3B. Quarantine threat file & record in history
             quarantine_path = self.locker.quarantine_file(filepath, threat_info=result_msg)
+            scan_history.record_scan(filepath, "QUARANTINED", result_msg)
             if self.notify_callback:
                 self.notify_callback("🚨 THREAT BLOCKED & QUARANTINED!", f"Quarantined: {filename}\n{result_msg}")
 
