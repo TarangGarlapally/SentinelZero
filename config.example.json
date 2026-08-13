@@ -1,13 +1,10 @@
 {
   "app_name": "Sentinel Zero",
-  "version": "1.0.0",
+  "version": "1.2.1",
   "autostart_enabled": true,
   "quarantine_dir": "Quarantine",
   "watch_directories": [
-    "%USERPROFILE%\\Downloads",
-    "%USERPROFILE%\\Desktop",
-    "%USERPROFILE%\\Projects",
-    "%LOCALAPPDATA%\\Temp"
+    "%USERPROFILE%\\Downloads"
   ],
   "cookie_guard": {
     "enabled": true,

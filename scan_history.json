@@ -1,0 +1,61 @@
+{
+  "scanned_count": 7,
+  "history": [
+    {
+      "id": 7,
+      "filename": "niikhdgajlphfehepabhhblakbdgeefj_2025.06.16.00_all_acgsomx5qtwgffxcrxwhoksfom7q.crx3",
+      "filepath": "C:\\Users\\taran\\AppData\\Local\\Temp\\chrome_BITS_15564_176972974\\niikhdgajlphfehepabhhblakbdgeefj_2025.06.16.00_all_acgsomx5qtwgffxcrxwhoksfom7q.crx3",
+      "status": "SAFE",
+      "finding": "Header read bypass: [Errno 13] Permission denied: 'C:\\\\Users\\\\taran\\\\AppData\\\\Local\\\\Temp\\\\chrome_BITS_15564_176972974\\\\niikhdgajlphfehepabhhblakbdgeefj_2025.06.16.00_all_acgsomx5qtwgffxcrxwhoksfom7q.crx3'",
+      "timestamp": 1786633218
+    },
+    {
+      "id": 6,
+      "filename": "niikhdgajlphfehepabhhblakbdgeefj_2025.06.16.00_all_acgsomx5qtwgffxcrxwhoksfom7q.crx3",
+      "filepath": "C:\\Users\\taran\\AppData\\Local\\Temp\\chrome_BITS_4892_946840708\\niikhdgajlphfehepabhhblakbdgeefj_2025.06.16.00_all_acgsomx5qtwgffxcrxwhoksfom7q.crx3",
+      "status": "SAFE",
+      "finding": "File no longer exists",
+      "timestamp": 1786633196
+    },
+    {
+      "id": 5,
+      "filename": "niikhdgajlphfehepabhhblakbdgeefj_2025.06.16.00_all_acgsomx5qtwgffxcrxwhoksfom7q.crx3",
+      "filepath": "C:\\Users\\taran\\AppData\\Local\\Temp\\chrome_BITS_4244_1917957511\\niikhdgajlphfehepabhhblakbdgeefj_2025.06.16.00_all_acgsomx5qtwgffxcrxwhoksfom7q.crx3",
+      "status": "SAFE",
+      "finding": "Header read bypass: [Errno 13] Permission denied: 'C:\\\\Users\\\\taran\\\\AppData\\\\Local\\\\Temp\\\\chrome_BITS_4244_1917957511\\\\niikhdgajlphfehepabhhblakbdgeefj_2025.06.16.00_all_acgsomx5qtwgffxcrxwhoksfom7q.crx3'",
+      "timestamp": 1786633194
+    },
+    {
+      "id": 4,
+      "filename": "tmpftnbpqqe.ico",
+      "filepath": "C:\\Users\\taran\\AppData\\Local\\Temp\\tmpftnbpqqe.ico",
+      "status": "SAFE",
+      "finding": "Passed all security checks",
+      "timestamp": 1786633159
+    },
+    {
+      "id": 3,
+      "filename": "{26330492-100D-446C-8566-26222E1931B9} - OProcSessId.dat",
+      "filepath": "C:\\Users\\taran\\AppData\\Local\\Temp\\{26330492-100D-446C-8566-26222E1931B9} - OProcSessId.dat",
+      "status": "SAFE",
+      "finding": "Header read bypass: [Errno 13] Permission denied: 'C:\\\\Users\\\\taran\\\\AppData\\\\Local\\\\Temp\\\\{26330492-100D-446C-8566-26222E1931B9} - OProcSessId.dat'",
+      "timestamp": 1786632469
+    },
+    {
+      "id": 2,
+      "filename": "scan_history.json",
+      "filepath": "C:\\Users\\taran\\Projects\\SentinelZero\\scan_history.json",
+      "status": "SAFE",
+      "finding": "Header read bypass: [Errno 13] Permission denied: 'C:\\\\Users\\\\taran\\\\Projects\\\\SentinelZero\\\\scan_history.json'",
+      "timestamp": 1786631583
+    },
+    {
+      "id": 1,
+      "filename": "tmp_dhmcgu7.ico",
+      "filepath": "C:\\Users\\taran\\AppData\\Local\\Temp\\tmp_dhmcgu7.ico",
+      "status": "SAFE",
+      "finding": "Passed all security checks",
+      "timestamp": 1786631583
+    }
+  ]
+}
