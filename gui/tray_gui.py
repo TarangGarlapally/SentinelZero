@@ -2,7 +2,6 @@ import os
 import threading
 from PIL import Image, ImageDraw
 import pystray
-from plyer import notification
 
 def create_tray_icon():
     """Generates a dark-mode shield icon dynamically in memory."""
@@ -23,13 +22,15 @@ class SystemTrayApp:
         self.icon = None
 
     def show_notification(self, title, message):
-        """Displays Windows native Toast Notification."""
+        """Displays native Windows notification with safe error handling."""
+        print(f"[Sentinel Zero] {title}: {message}")
         try:
+            from plyer import notification
             notification.notify(
                 title=title,
                 message=message,
                 app_name="Sentinel Zero",
-                timeout=4
+                timeout=3
             )
         except Exception:
             pass
