@@ -12,6 +12,8 @@ from core.watchdog_engine import WatchdogEngine
 from core.cookie_guard import CookieGuard
 from gui.tray_gui import SystemTrayApp
 from gui.quarantine_window import QuarantineWindow
+from gui.web_dashboard import run_dashboard_bg
+from utils.feed_updater import FeedUpdater
 from utils.autostart import set_autostart
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -23,7 +25,7 @@ def load_config():
 
 def main():
     print("=" * 60)
-    print("      Sentinel Zero - Proactive System Guard v1.0")
+    print("      Sentinel Zero - Proactive System Guard v1.2.0")
     print("=" * 60)
 
     config = load_config()
@@ -31,18 +33,25 @@ def main():
     # 1. Enable Windows Autostart
     set_autostart(True, os.path.join(BASE_DIR, "app.py"))
 
-    # 2. Initialize Core Engines
+    # 2. Sync Latest Infostealer Signatures
+    updater = FeedUpdater()
+    threading.Thread(target=updater.update_rules, daemon=True).start()
+
+    # 3. Start Local Web Dashboard (http://localhost:9090)
+    run_dashboard_bg(port=9090)
+
+    # 4. Initialize Core Engines
     quarantine_dir = config.get("quarantine_dir", os.path.join(BASE_DIR, "Quarantine"))
     locker = FileLocker(quarantine_dir)
-    scanner = UniversalScanner()
+    scanner = UniversalScanner(vt_api_key=config.get("virustotal_api_key"))
 
-    # 3. Setup System Tray & Notifications
+    # 5. Setup System Tray & Notifications
     tray = SystemTrayApp(
         on_open_quarantine=lambda: open_quarantine_gui(quarantine_dir),
         on_exit=lambda: stop_all(watchdog, cookie_guard)
     )
 
-    # 4. Initialize Real-Time Watchdog Engine for Downloads
+    # 6. Initialize Real-Time Watchdog Engine for Downloads
     watch_paths = config.get("watch_directories", [])
     watchdog = WatchdogEngine(
         watch_paths=watch_paths,
@@ -52,7 +61,7 @@ def main():
     )
     watchdog.start()
 
-    # 5. Initialize Cookie Guard
+    # 7. Initialize Cookie Guard
     cookie_paths = config.get("cookie_guard", {}).get("browser_cookie_paths", [])
     cookie_guard = CookieGuard(
         cookie_paths=cookie_paths,
@@ -60,9 +69,9 @@ def main():
     )
     cookie_guard.start()
 
-    tray.show_notification("Sentinel Zero Active", "Real-Time Universal Lock & Cookie Guard Enabled.")
+    tray.show_notification("Sentinel Zero Active", "Universal Lock & Web Dashboard (http://localhost:9090) Running.")
 
-    # 6. Run System Tray Icon Loop
+    # 8. Run System Tray Icon Loop
     try:
         tray.run()
     except KeyboardInterrupt:
