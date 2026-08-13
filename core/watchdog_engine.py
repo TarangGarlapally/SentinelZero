@@ -8,7 +8,7 @@ from .scan_history import scan_history
 class BrowserDownloadHandler(FileSystemEventHandler):
     """
     Universal Browser Download Interceptor:
-    Watches ALL folders and drives across the system, but ONLY triggers when an actual 
+    Watches ALL user folders and drives, but ONLY triggers when an actual 
     web browser download completes (when .crdownload, .part, or .tmp finishes renaming to final file, 
     or when Zone.Identifier Mark-of-the-Web is detected).
     """
@@ -31,9 +31,10 @@ class BrowserDownloadHandler(FileSystemEventHandler):
             return True
 
         # Pattern 2: Windows Mark-of-the-Web (Zone.Identifier) attached by browser
-        zone_file = dest_path + ":Zone.Identifier"
-        if os.path.exists(zone_file):
-            return True
+        if dest_path:
+            zone_file = dest_path + ":Zone.Identifier"
+            if os.path.exists(zone_file):
+                return True
 
         return False
 
@@ -84,13 +85,12 @@ class BrowserDownloadHandler(FileSystemEventHandler):
     def on_created(self, event):
         """Fired for direct downloads or downloads with instant Mark-of-the-Web."""
         if not event.is_directory:
-            # Check if file has Zone.Identifier attached or is created as part of browser download
             if self._is_browser_download(None, event.src_path):
                 threading.Thread(target=self._process_completed_download, args=(event.src_path,), daemon=True).start()
 
 
 class WatchdogEngine:
-    """Monitors configured user directories for actual web browser download completions."""
+    """Monitors all configured user directories and subdirectories for web browser download completions."""
 
     def __init__(self, watch_paths, locker, scanner, notify_callback=None):
         self.watch_paths = watch_paths

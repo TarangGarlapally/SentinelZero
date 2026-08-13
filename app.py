@@ -3,8 +3,12 @@ import sys
 import json
 import threading
 
-# Force UTF-8 stdout encoding for Windows console
-sys.stdout.reconfigure(encoding='utf-8', errors='ignore')
+# Force UTF-8 stdout encoding for Windows console (safely check if sys.stdout exists for PyInstaller windowed mode)
+if sys.stdout is not None and hasattr(sys.stdout, "reconfigure"):
+    try:
+        sys.stdout.reconfigure(encoding='utf-8', errors='ignore')
+    except Exception:
+        pass
 
 from core.file_locker import FileLocker
 from core.scanners.universal_scanner import UniversalScanner
@@ -20,12 +24,21 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 CONFIG_PATH = os.path.join(BASE_DIR, "config.json")
 
 def load_config():
-    with open(CONFIG_PATH, "r", encoding="utf-8") as f:
-        return json.load(f)
+    if os.path.exists(CONFIG_PATH):
+        with open(CONFIG_PATH, "r", encoding="utf-8") as f:
+            return json.load(f)
+    return {
+        "app_name": "Sentinel Zero",
+        "version": "1.3.0",
+        "autostart_enabled": True,
+        "quarantine_dir": os.path.join(BASE_DIR, "Quarantine"),
+        "watch_directories": [os.path.expanduser(r"~\Downloads")],
+        "cookie_guard": {"enabled": True, "browser_cookie_paths": []}
+    }
 
 def main():
     print("=" * 60)
-    print("      Sentinel Zero - Proactive System Guard v1.2.0")
+    print("      Sentinel Zero - Proactive System Guard v1.3.0")
     print("=" * 60)
 
     config = load_config()

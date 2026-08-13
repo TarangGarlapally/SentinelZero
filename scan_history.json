@@ -1,6 +1,14 @@
 {
-  "scanned_count": 8,
+  "scanned_count": 9,
   "history": [
+    {
+      "id": 9,
+      "filename": "pexels-tiempoembotellado-37829582.jpg",
+      "filepath": "C:\\Users\\taran\\Downloads\\pexels-tiempoembotellado-37829582.jpg",
+      "status": "SAFE",
+      "finding": "Header read bypass: [Errno 13] Permission denied: 'C:\\\\Users\\\\taran\\\\Downloads\\\\pexels-tiempoembotellado-37829582.jpg'",
+      "timestamp": 1786634830
+    },
     {
       "id": 8,
       "filename": "pexels-tiempoembotellado-37829582 (1).jpg",
