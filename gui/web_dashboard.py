@@ -34,13 +34,13 @@ HTML_TEMPLATE = """<!DOCTYPE html>
 </head>
 <body>
     <div class="header">
-        <h1>🛡️ Sentinel Zero - Protection Dashboard</h1>
+        <h1>🛡️ Sentinel Zero - Universal Protection Dashboard</h1>
         <span class="badge">SYSTEM PROTECTED & ACTIVE</span>
     </div>
 
     <div class="grid">
         <div class="card">
-            <h3>Total Downloads Verified</h3>
+            <h3>Total Files Verified</h3>
             <div class="stat" id="stat-scanned">0</div>
             <p>Locked & verified clean before execution</p>
         </div>
@@ -76,7 +76,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
                 </tr>
             </thead>
             <tbody id="history-table">
-                <tr><td colspan="5">Loading download history...</td></tr>
+                <tr><td colspan="5">Loading inspection history...</td></tr>
             </tbody>
         </table>
     </div>
@@ -101,7 +101,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
             if (currentFilter === 'QUARANTINED') filtered = rawHistory.filter(h => h.status === 'QUARANTINED');
 
             if (filtered.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; padding:20px; color:#94a3b8;">No matching downloads found in this view.</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; padding:20px; color:#94a3b8;">No matching files found in this view.</td></tr>';
                 return;
             }
 
@@ -125,8 +125,9 @@ HTML_TEMPLATE = """<!DOCTYPE html>
                 const res = await fetch('/api/stats');
                 const data = await res.json();
                 
-                document.getElementById('stat-scanned').innerText = data.scanned_count || 0;
                 rawHistory = data.history || [];
+                const totalCount = data.scanned_count || rawHistory.length;
+                document.getElementById('stat-scanned').innerText = totalCount;
                 
                 const safeCount = rawHistory.filter(h => h.status === 'SAFE').length;
                 const threatCount = rawHistory.filter(h => h.status === 'QUARANTINED').length;
