@@ -8,9 +8,9 @@ from .scan_history import scan_history
 class BrowserDownloadHandler(FileSystemEventHandler):
     """
     Universal Browser Download Interceptor:
-    Watches ALL user folders and drives, but ONLY triggers when an actual 
-    web browser download completes (when .crdownload, .part, or .tmp finishes renaming to final file, 
-    or when Zone.Identifier Mark-of-the-Web is detected).
+    Monitors all system folders for completed web browser downloads.
+    Silently unlocks clean/genuine files without popup notifications or history clutter.
+    ONLY triggers Windows notifications and logs threats when a genuine malware/stealer is blocked!
     """
 
     TEMP_DOWNLOAD_EXTENSIONS = ['.crdownload', '.part', '.tmp', '.download']
@@ -54,24 +54,19 @@ class BrowserDownloadHandler(FileSystemEventHandler):
 
         # 1. Instantly Lock Downloaded File
         locked, handle = self.locker.lock_file(filepath)
-        if self.notify_callback:
-            self.notify_callback("🔒 Download Intercepted & Locked", f"Scanning: {filename}")
 
         # 2. Universal Threat Scan
         is_clean, result_msg = self.scanner.scan_file(filepath)
 
         if is_clean:
-            # 3A. Unlock clean download & record in history
+            # 3A. Silently unlock clean/genuine files (NO notification, NO log clutter)
             self.locker.unlock_file(filepath)
-            scan_history.record_scan(filepath, "SAFE", result_msg)
-            if self.notify_callback:
-                self.notify_callback("✅ Download Verified Safe", f"Unlocked: {filename}\n({result_msg})")
         else:
-            # 3B. Quarantine threat download & record in history
+            # 3B. Block genuine threat, move to quarantine, record log, and trigger notification
             quarantine_path = self.locker.quarantine_file(filepath, threat_info=result_msg)
             scan_history.record_scan(filepath, "QUARANTINED", result_msg)
             if self.notify_callback:
-                self.notify_callback("🚨 THREAT BLOCKED & QUARANTINED!", f"Quarantined: {filename}\n{result_msg}")
+                self.notify_callback("🚨 THREAT BLOCKED & QUARANTINED!", f"Blocked: {filename}\n{result_msg}")
 
         # Clean cache after 10s
         threading.Timer(10.0, lambda: self._recently_scanned.discard(filepath)).start()
@@ -90,7 +85,7 @@ class BrowserDownloadHandler(FileSystemEventHandler):
 
 
 class WatchdogEngine:
-    """Monitors all configured user directories and subdirectories for web browser download completions."""
+    """Monitors configured user directories for web browser download completions."""
 
     def __init__(self, watch_paths, locker, scanner, notify_callback=None):
         self.watch_paths = watch_paths
