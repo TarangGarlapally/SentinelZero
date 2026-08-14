@@ -7,6 +7,7 @@ from core.scan_history import scan_history
 
 PORT = 9090
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+HISTORY_FILE_PATH = os.path.abspath(os.path.join(BASE_DIR, "..", "scan_history.json"))
 
 HTML_TEMPLATE = """<!DOCTYPE html>
 <html lang="en">
@@ -156,6 +157,16 @@ class DashboardRequestHandler(http.server.SimpleHTTPRequestHandler):
             self.send_response(200)
             self.send_header('Content-type', 'application/json')
             self.end_headers()
+            
+            if os.path.exists(HISTORY_FILE_PATH):
+                try:
+                    with open(HISTORY_FILE_PATH, "r", encoding="utf-8") as f:
+                        data = json.load(f)
+                        self.wfile.write(json.dumps(data).encode('utf-8'))
+                        return
+                except Exception:
+                    pass
+
             stats = scan_history.get_stats()
             self.wfile.write(json.dumps(stats).encode('utf-8'))
         else:
