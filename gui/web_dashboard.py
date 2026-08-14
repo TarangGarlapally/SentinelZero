@@ -5,7 +5,7 @@ import json
 import os
 from core.scan_history import scan_history
 
-DEFAULT_PORT = 9090
+DEFAULT_PORT = 9999
 DATA_DIR = os.path.join(os.environ.get("LOCALAPPDATA", os.path.expanduser("~")), "SentinelZero")
 HISTORY_FILE_PATH = os.path.join(DATA_DIR, "scan_history.json")
 

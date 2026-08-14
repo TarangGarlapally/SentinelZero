@@ -22,20 +22,13 @@ class SystemTrayApp:
         self.icon = None
 
     def show_notification(self, title, message):
-        """Displays native Windows notification with safe error handling."""
+        """Displays native Windows notification with safe error handling via pystray."""
         print(f"[Sentinel Zero] {title}: {message}")
-        def _notify():
-            try:
-                from plyer import notification
-                notification.notify(
-                    title=title,
-                    message=message,
-                    app_name="Sentinel Zero",
-                    timeout=3
-                )
-            except Exception:
-                pass
-        threading.Thread(target=_notify, daemon=True).start()
+        try:
+            if self.icon and hasattr(self.icon, 'notify'):
+                self.icon.notify(message, title)
+        except Exception:
+            pass
 
     def run(self):
         icon_img = create_tray_icon()

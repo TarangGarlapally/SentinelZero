@@ -50,8 +50,8 @@ def main():
     updater = FeedUpdater()
     threading.Thread(target=updater.update_rules, daemon=True).start()
 
-    # 3. Start Local Web Dashboard (http://localhost:9091)
-    run_dashboard_bg(port=9091)
+    # 3. Start Local Web Dashboard (http://localhost:9999)
+    run_dashboard_bg(port=9999)
 
     # 4. Initialize Core Engines
     quarantine_dir = config.get("quarantine_dir", os.path.join(BASE_DIR, "Quarantine"))
