@@ -1,6 +1,558 @@
 {
-  "scanned_count": 252,
+  "scanned_count": 321,
   "history": [
+    {
+      "id": 321,
+      "filename": "c591d00c-a042-4f44-a3ee-b99e2fc458fc.pbtxt",
+      "filepath": "C:\\Users\\taran\\.gemini\\antigravity\\annotations\\c591d00c-a042-4f44-a3ee-b99e2fc458fc.pbtxt",
+      "status": "SAFE",
+      "finding": "Header read bypass: [Errno 13] Permission denied: 'C:\\\\Users\\\\taran\\\\.gemini\\\\antigravity\\\\annotations\\\\c591d00c-a042-4f44-a3ee-b99e2fc458fc.pbtxt'",
+      "timestamp": 1786727811
+    },
+    {
+      "id": 320,
+      "filename": "Local State",
+      "filepath": "C:\\Users\\taran\\AppData\\Local\\BraveSoftware\\Brave-Browser\\User Data\\Local State",
+      "status": "SAFE",
+      "finding": "Header read bypass: [Errno 13] Permission denied: 'C:\\\\Users\\\\taran\\\\AppData\\\\Local\\\\BraveSoftware\\\\Brave-Browser\\\\User Data\\\\Local State'",
+      "timestamp": 1786727811
+    },
+    {
+      "id": 319,
+      "filename": "Local State",
+      "filepath": "C:\\Users\\taran\\AppData\\Local\\FirestormOS_x64\\cef_cache\\9584\\Local State",
+      "status": "SAFE",
+      "finding": "Header read bypass: [Errno 13] Permission denied: 'C:\\\\Users\\\\taran\\\\AppData\\\\Local\\\\FirestormOS_x64\\\\cef_cache\\\\9584\\\\Local State'",
+      "timestamp": 1786727809
+    },
+    {
+      "id": 318,
+      "filename": "agyhub_summaries_proto.pb",
+      "filepath": "C:\\Users\\taran\\.gemini\\antigravity\\agyhub_summaries_proto.pb",
+      "status": "SAFE",
+      "finding": "Header read bypass: [Errno 13] Permission denied: 'C:\\\\Users\\\\taran\\\\.gemini\\\\antigravity\\\\agyhub_summaries_proto.pb'",
+      "timestamp": 1786727808
+    },
+    {
+      "id": 317,
+      "filename": "Network Persistent State",
+      "filepath": "C:\\Users\\taran\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Network\\Network Persistent State",
+      "status": "SAFE",
+      "finding": "Header read bypass: [Errno 13] Permission denied: 'C:\\\\Users\\\\taran\\\\AppData\\\\Local\\\\Google\\\\Chrome\\\\User Data\\\\Default\\\\Network\\\\Network Persistent State'",
+      "timestamp": 1786727805
+    },
+    {
+      "id": 316,
+      "filename": "metadata.json",
+      "filepath": "C:\\Users\\taran\\AppData\\Local\\FirestormOS_x64\\cef_cache\\9584\\component_crx_cache\\metadata.json",
+      "status": "SAFE",
+      "finding": "Header read bypass: [Errno 13] Permission denied: 'C:\\\\Users\\\\taran\\\\AppData\\\\Local\\\\FirestormOS_x64\\\\cef_cache\\\\9584\\\\component_crx_cache\\\\metadata.json'",
+      "timestamp": 1786727805
+    },
+    {
+      "id": 315,
+      "filename": "Local State",
+      "filepath": "C:\\Users\\taran\\AppData\\Local\\FirestormOS_x64\\cef_cache\\29116\\Local State",
+      "status": "SAFE",
+      "finding": "Header read bypass: [Errno 13] Permission denied: 'C:\\\\Users\\\\taran\\\\AppData\\\\Local\\\\FirestormOS_x64\\\\cef_cache\\\\29116\\\\Local State'",
+      "timestamp": 1786727801
+    },
+    {
+      "id": 314,
+      "filename": "metadata.json",
+      "filepath": "C:\\Users\\taran\\AppData\\Local\\FirestormOS_x64\\cef_cache\\29116\\component_crx_cache\\metadata.json",
+      "status": "SAFE",
+      "finding": "Header read bypass: [Errno 13] Permission denied: 'C:\\\\Users\\\\taran\\\\AppData\\\\Local\\\\FirestormOS_x64\\\\cef_cache\\\\29116\\\\component_crx_cache\\\\metadata.json'",
+      "timestamp": 1786727801
+    },
+    {
+      "id": 313,
+      "filename": "Local State",
+      "filepath": "C:\\Users\\taran\\AppData\\Local\\BraveSoftware\\Brave-Browser\\User Data\\Local State",
+      "status": "SAFE",
+      "finding": "Header read bypass: [Errno 13] Permission denied: 'C:\\\\Users\\\\taran\\\\AppData\\\\Local\\\\BraveSoftware\\\\Brave-Browser\\\\User Data\\\\Local State'",
+      "timestamp": 1786727796
+    },
+    {
+      "id": 312,
+      "filename": "c7f7ea7e08d298a80765a4487523560228a6b60c4ff767480b2e91fc313de154",
+      "filepath": "C:\\Users\\taran\\AppData\\Local\\Temp\\chrome_BITS_9584_2089351104\\c7f7ea7e08d298a80765a4487523560228a6b60c4ff767480b2e91fc313de154",
+      "status": "SAFE",
+      "finding": "Header read bypass: [Errno 13] Permission denied: 'C:\\\\Users\\\\taran\\\\AppData\\\\Local\\\\Temp\\\\chrome_BITS_9584_2089351104\\\\c7f7ea7e08d298a80765a4487523560228a6b60c4ff767480b2e91fc313de154'",
+      "timestamp": 1786727791
+    },
+    {
+      "id": 311,
+      "filename": "de308202af433d8484c5bbd0be69a6b92b07869562296a47b8c54856adcd43bb",
+      "filepath": "C:\\Users\\taran\\AppData\\Local\\Temp\\chrome_BITS_29116_694274431\\de308202af433d8484c5bbd0be69a6b92b07869562296a47b8c54856adcd43bb",
+      "status": "SAFE",
+      "finding": "Header read bypass: [Errno 13] Permission denied: 'C:\\\\Users\\\\taran\\\\AppData\\\\Local\\\\Temp\\\\chrome_BITS_29116_694274431\\\\de308202af433d8484c5bbd0be69a6b92b07869562296a47b8c54856adcd43bb'",
+      "timestamp": 1786727790
+    },
+    {
+      "id": 310,
+      "filename": "Preferences",
+      "filepath": "C:\\Users\\taran\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Preferences",
+      "status": "SAFE",
+      "finding": "Header read bypass: [Errno 13] Permission denied: 'C:\\\\Users\\\\taran\\\\AppData\\\\Local\\\\Google\\\\Chrome\\\\User Data\\\\Default\\\\Preferences'",
+      "timestamp": 1786727789
+    },
+    {
+      "id": 309,
+      "filename": "Preferences",
+      "filepath": "C:\\Users\\taran\\AppData\\Local\\BraveSoftware\\Brave-Browser\\User Data\\Default\\Preferences",
+      "status": "SAFE",
+      "finding": "Header read bypass: [Errno 13] Permission denied: 'C:\\\\Users\\\\taran\\\\AppData\\\\Local\\\\BraveSoftware\\\\Brave-Browser\\\\User Data\\\\Default\\\\Preferences'",
+      "timestamp": 1786727787
+    },
+    {
+      "id": 308,
+      "filename": "Local State",
+      "filepath": "C:\\Users\\taran\\AppData\\Local\\BraveSoftware\\Brave-Browser\\User Data\\Local State",
+      "status": "SAFE",
+      "finding": "Header read bypass: [Errno 13] Permission denied: 'C:\\\\Users\\\\taran\\\\AppData\\\\Local\\\\BraveSoftware\\\\Brave-Browser\\\\User Data\\\\Local State'",
+      "timestamp": 1786727785
+    },
+    {
+      "id": 307,
+      "filename": "Local State",
+      "filepath": "C:\\Users\\taran\\AppData\\Local\\FirestormOS_x64\\cef_cache\\28800\\Local State",
+      "status": "SAFE",
+      "finding": "Header read bypass: [Errno 13] Permission denied: 'C:\\\\Users\\\\taran\\\\AppData\\\\Local\\\\FirestormOS_x64\\\\cef_cache\\\\28800\\\\Local State'",
+      "timestamp": 1786727785
+    },
+    {
+      "id": 306,
+      "filename": "agyhub_summaries_proto.pb",
+      "filepath": "C:\\Users\\taran\\.gemini\\antigravity\\agyhub_summaries_proto.pb",
+      "status": "SAFE",
+      "finding": "Header read bypass: [Errno 13] Permission denied: 'C:\\\\Users\\\\taran\\\\.gemini\\\\antigravity\\\\agyhub_summaries_proto.pb'",
+      "timestamp": 1786727783
+    },
+    {
+      "id": 305,
+      "filename": "metadata.json",
+      "filepath": "C:\\Users\\taran\\AppData\\Local\\FirestormOS_x64\\cef_cache\\28800\\component_crx_cache\\metadata.json",
+      "status": "SAFE",
+      "finding": "Header read bypass: [Errno 13] Permission denied: 'C:\\\\Users\\\\taran\\\\AppData\\\\Local\\\\FirestormOS_x64\\\\cef_cache\\\\28800\\\\component_crx_cache\\\\metadata.json'",
+      "timestamp": 1786727780
+    },
+    {
+      "id": 304,
+      "filename": "Network Persistent State",
+      "filepath": "C:\\Users\\taran\\AppData\\Local\\NVIDIA Corporation\\NVIDIA Overlay\\CefCache\\Default\\Network\\Network Persistent State",
+      "status": "SAFE",
+      "finding": "Header read bypass: [Errno 13] Permission denied: 'C:\\\\Users\\\\taran\\\\AppData\\\\Local\\\\NVIDIA Corporation\\\\NVIDIA Overlay\\\\CefCache\\\\Default\\\\Network\\\\Network Persistent State'",
+      "timestamp": 1786727779
+    },
+    {
+      "id": 303,
+      "filename": "Local State",
+      "filepath": "C:\\Users\\taran\\AppData\\Local\\FirestormOS_x64\\cef_cache\\9584\\Local State",
+      "status": "SAFE",
+      "finding": "Header read bypass: [Errno 13] Permission denied: 'C:\\\\Users\\\\taran\\\\AppData\\\\Local\\\\FirestormOS_x64\\\\cef_cache\\\\9584\\\\Local State'",
+      "timestamp": 1786727777
+    },
+    {
+      "id": 302,
+      "filename": "Preferences",
+      "filepath": "C:\\Users\\taran\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Preferences",
+      "status": "SAFE",
+      "finding": "Header read bypass: [Errno 13] Permission denied: 'C:\\\\Users\\\\taran\\\\AppData\\\\Local\\\\Google\\\\Chrome\\\\User Data\\\\Default\\\\Preferences'",
+      "timestamp": 1786727774
+    },
+    {
+      "id": 301,
+      "filename": "metadata.json",
+      "filepath": "C:\\Users\\taran\\AppData\\Local\\FirestormOS_x64\\cef_cache\\9584\\component_crx_cache\\metadata.json",
+      "status": "SAFE",
+      "finding": "Header read bypass: [Errno 13] Permission denied: 'C:\\\\Users\\\\taran\\\\AppData\\\\Local\\\\FirestormOS_x64\\\\cef_cache\\\\9584\\\\component_crx_cache\\\\metadata.json'",
+      "timestamp": 1786727771
+    },
+    {
+      "id": 300,
+      "filename": "Local State",
+      "filepath": "C:\\Users\\taran\\AppData\\Local\\BraveSoftware\\Brave-Browser\\User Data\\Local State",
+      "status": "SAFE",
+      "finding": "Header read bypass: [Errno 13] Permission denied: 'C:\\\\Users\\\\taran\\\\AppData\\\\Local\\\\BraveSoftware\\\\Brave-Browser\\\\User Data\\\\Local State'",
+      "timestamp": 1786727769
+    },
+    {
+      "id": 299,
+      "filename": "laoigpblnllgcgjnjnllmfolckpjlhki_1.1.0.3_all_adwgvw4jdcarox4vlsm7t4gq257a.crx3",
+      "filepath": "C:\\Users\\taran\\AppData\\Local\\Temp\\chrome_BITS_28800_209301188\\laoigpblnllgcgjnjnllmfolckpjlhki_1.1.0.3_all_adwgvw4jdcarox4vlsm7t4gq257a.crx3",
+      "status": "SAFE",
+      "finding": "Header read bypass: [Errno 13] Permission denied: 'C:\\\\Users\\\\taran\\\\AppData\\\\Local\\\\Temp\\\\chrome_BITS_28800_209301188\\\\laoigpblnllgcgjnjnllmfolckpjlhki_1.1.0.3_all_adwgvw4jdcarox4vlsm7t4gq257a.crx3'",
+      "timestamp": 1786727767
+    },
+    {
+      "id": 298,
+      "filename": "config.json",
+      "filepath": "C:\\Users\\taran\\.gemini\\config\\config.json",
+      "status": "SAFE",
+      "finding": "Header read bypass: [Errno 13] Permission denied: 'C:\\\\Users\\\\taran\\\\.gemini\\\\config\\\\config.json'",
+      "timestamp": 1786727767
+    },
+    {
+      "id": 297,
+      "filename": "Preferences",
+      "filepath": "C:\\Users\\taran\\AppData\\Local\\BraveSoftware\\Brave-Browser\\User Data\\Default\\Preferences",
+      "status": "SAFE",
+      "finding": "Header read bypass: [Errno 13] Permission denied: 'C:\\\\Users\\\\taran\\\\AppData\\\\Local\\\\BraveSoftware\\\\Brave-Browser\\\\User Data\\\\Default\\\\Preferences'",
+      "timestamp": 1786727766
+    },
+    {
+      "id": 296,
+      "filename": "agyhub_summaries_proto.pb",
+      "filepath": "C:\\Users\\taran\\.gemini\\antigravity\\agyhub_summaries_proto.pb",
+      "status": "SAFE",
+      "finding": "Header read bypass: [Errno 13] Permission denied: 'C:\\\\Users\\\\taran\\\\.gemini\\\\antigravity\\\\agyhub_summaries_proto.pb'",
+      "timestamp": 1786727765
+    },
+    {
+      "id": 295,
+      "filename": "c591d00c-a042-4f44-a3ee-b99e2fc458fc.pbtxt",
+      "filepath": "C:\\Users\\taran\\.gemini\\antigravity\\annotations\\c591d00c-a042-4f44-a3ee-b99e2fc458fc.pbtxt",
+      "status": "SAFE",
+      "finding": "Header read bypass: [Errno 13] Permission denied: 'C:\\\\Users\\\\taran\\\\.gemini\\\\antigravity\\\\annotations\\\\c591d00c-a042-4f44-a3ee-b99e2fc458fc.pbtxt'",
+      "timestamp": 1786727764
+    },
+    {
+      "id": 294,
+      "filename": "Network Persistent State",
+      "filepath": "C:\\Users\\taran\\AppData\\Local\\FirestormOS_x64\\cef_cache\\24160\\Default\\Network\\Network Persistent State",
+      "status": "SAFE",
+      "finding": "Header read bypass: [Errno 13] Permission denied: 'C:\\\\Users\\\\taran\\\\AppData\\\\Local\\\\FirestormOS_x64\\\\cef_cache\\\\24160\\\\Default\\\\Network\\\\Network Persistent State'",
+      "timestamp": 1786727761
+    },
+    {
+      "id": 293,
+      "filename": "de308202af433d8484c5bbd0be69a6b92b07869562296a47b8c54856adcd43bb",
+      "filepath": "C:\\Users\\taran\\AppData\\Local\\Temp\\chrome_BITS_9584_406413910\\de308202af433d8484c5bbd0be69a6b92b07869562296a47b8c54856adcd43bb",
+      "status": "SAFE",
+      "finding": "Header read bypass: [Errno 13] Permission denied: 'C:\\\\Users\\\\taran\\\\AppData\\\\Local\\\\Temp\\\\chrome_BITS_9584_406413910\\\\de308202af433d8484c5bbd0be69a6b92b07869562296a47b8c54856adcd43bb'",
+      "timestamp": 1786727757
+    },
+    {
+      "id": 292,
+      "filename": "Local State",
+      "filepath": "C:\\Users\\taran\\AppData\\Local\\FirestormOS_x64\\cef_cache\\9584\\Local State",
+      "status": "SAFE",
+      "finding": "Header read bypass: [Errno 13] Permission denied: 'C:\\\\Users\\\\taran\\\\AppData\\\\Local\\\\FirestormOS_x64\\\\cef_cache\\\\9584\\\\Local State'",
+      "timestamp": 1786727756
+    },
+    {
+      "id": 291,
+      "filename": "metadata.json",
+      "filepath": "C:\\Users\\taran\\AppData\\Local\\FirestormOS_x64\\cef_cache\\9584\\component_crx_cache\\metadata.json",
+      "status": "SAFE",
+      "finding": "Header read bypass: [Errno 13] Permission denied: 'C:\\\\Users\\\\taran\\\\AppData\\\\Local\\\\FirestormOS_x64\\\\cef_cache\\\\9584\\\\component_crx_cache\\\\metadata.json'",
+      "timestamp": 1786727751
+    },
+    {
+      "id": 290,
+      "filename": "Local State",
+      "filepath": "C:\\Users\\taran\\AppData\\Local\\BraveSoftware\\Brave-Browser\\User Data\\Local State",
+      "status": "SAFE",
+      "finding": "Header read bypass: [Errno 13] Permission denied: 'C:\\\\Users\\\\taran\\\\AppData\\\\Local\\\\BraveSoftware\\\\Brave-Browser\\\\User Data\\\\Local State'",
+      "timestamp": 1786727750
+    },
+    {
+      "id": 289,
+      "filename": "Local State",
+      "filepath": "C:\\Users\\taran\\AppData\\Local\\BraveSoftware\\Brave-Browser\\User Data\\Local State",
+      "status": "SAFE",
+      "finding": "Header read bypass: [Errno 13] Permission denied: 'C:\\\\Users\\\\taran\\\\AppData\\\\Local\\\\BraveSoftware\\\\Brave-Browser\\\\User Data\\\\Local State'",
+      "timestamp": 1786727739
+    },
+    {
+      "id": 288,
+      "filename": "ojhpjlocmbogdgmfpkhlaaeamibhnphh_3_all_gplutbkdljxxbjolk3siq7kive.crx3",
+      "filepath": "C:\\Users\\taran\\AppData\\Local\\Temp\\chrome_BITS_9584_236183751\\ojhpjlocmbogdgmfpkhlaaeamibhnphh_3_all_gplutbkdljxxbjolk3siq7kive.crx3",
+      "status": "SAFE",
+      "finding": "Header read bypass: [Errno 13] Permission denied: 'C:\\\\Users\\\\taran\\\\AppData\\\\Local\\\\Temp\\\\chrome_BITS_9584_236183751\\\\ojhpjlocmbogdgmfpkhlaaeamibhnphh_3_all_gplutbkdljxxbjolk3siq7kive.crx3'",
+      "timestamp": 1786727739
+    },
+    {
+      "id": 287,
+      "filename": "Network Persistent State",
+      "filepath": "C:\\Users\\taran\\AppData\\Local\\BraveSoftware\\Brave-Browser\\User Data\\Default\\Network\\Network Persistent State",
+      "status": "SAFE",
+      "finding": "Header read bypass: [Errno 13] Permission denied: 'C:\\\\Users\\\\taran\\\\AppData\\\\Local\\\\BraveSoftware\\\\Brave-Browser\\\\User Data\\\\Default\\\\Network\\\\Network Persistent State'",
+      "timestamp": 1786727737
+    },
+    {
+      "id": 286,
+      "filename": "TransportSecurity",
+      "filepath": "C:\\Users\\taran\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Network\\TransportSecurity",
+      "status": "SAFE",
+      "finding": "Header read bypass: [Errno 13] Permission denied: 'C:\\\\Users\\\\taran\\\\AppData\\\\Local\\\\Google\\\\Chrome\\\\User Data\\\\Default\\\\Network\\\\TransportSecurity'",
+      "timestamp": 1786727730
+    },
+    {
+      "id": 285,
+      "filename": "Local State",
+      "filepath": "C:\\Users\\taran\\AppData\\Local\\FirestormOS_x64\\cef_cache\\29116\\Local State",
+      "status": "SAFE",
+      "finding": "Header read bypass: [Errno 13] Permission denied: 'C:\\\\Users\\\\taran\\\\AppData\\\\Local\\\\FirestormOS_x64\\\\cef_cache\\\\29116\\\\Local State'",
+      "timestamp": 1786727725
+    },
+    {
+      "id": 284,
+      "filename": "metadata.json",
+      "filepath": "C:\\Users\\taran\\AppData\\Local\\FirestormOS_x64\\cef_cache\\29116\\component_crx_cache\\metadata.json",
+      "status": "SAFE",
+      "finding": "Header read bypass: [Errno 13] Permission denied: 'C:\\\\Users\\\\taran\\\\AppData\\\\Local\\\\FirestormOS_x64\\\\cef_cache\\\\29116\\\\component_crx_cache\\\\metadata.json'",
+      "timestamp": 1786727725
+    },
+    {
+      "id": 283,
+      "filename": "Local State",
+      "filepath": "C:\\Users\\taran\\AppData\\Local\\BraveSoftware\\Brave-Browser\\User Data\\Local State",
+      "status": "SAFE",
+      "finding": "Header read bypass: [Errno 13] Permission denied: 'C:\\\\Users\\\\taran\\\\AppData\\\\Local\\\\BraveSoftware\\\\Brave-Browser\\\\User Data\\\\Local State'",
+      "timestamp": 1786727722
+    },
+    {
+      "id": 282,
+      "filename": "Preferences",
+      "filepath": "C:\\Users\\taran\\AppData\\Local\\BraveSoftware\\Brave-Browser\\User Data\\Default\\Preferences",
+      "status": "SAFE",
+      "finding": "Header read bypass: [Errno 13] Permission denied: 'C:\\\\Users\\\\taran\\\\AppData\\\\Local\\\\BraveSoftware\\\\Brave-Browser\\\\User Data\\\\Default\\\\Preferences'",
+      "timestamp": 1786727720
+    },
+    {
+      "id": 281,
+      "filename": "agyhub_summaries_proto.pb",
+      "filepath": "C:\\Users\\taran\\.gemini\\antigravity\\agyhub_summaries_proto.pb",
+      "status": "SAFE",
+      "finding": "Header read bypass: [Errno 13] Permission denied: 'C:\\\\Users\\\\taran\\\\.gemini\\\\antigravity\\\\agyhub_summaries_proto.pb'",
+      "timestamp": 1786727712
+    },
+    {
+      "id": 280,
+      "filename": "Network Persistent State",
+      "filepath": "C:\\Users\\taran\\AppData\\Local\\FirestormOS_x64\\cef_cache\\15008\\Default\\Network\\Network Persistent State",
+      "status": "SAFE",
+      "finding": "Header read bypass: [Errno 13] Permission denied: 'C:\\\\Users\\\\taran\\\\AppData\\\\Local\\\\FirestormOS_x64\\\\cef_cache\\\\15008\\\\Default\\\\Network\\\\Network Persistent State'",
+      "timestamp": 1786727712
+    },
+    {
+      "id": 279,
+      "filename": "Local State",
+      "filepath": "C:\\Users\\taran\\AppData\\Local\\FirestormOS_x64\\cef_cache\\9584\\Local State",
+      "status": "SAFE",
+      "finding": "Header read bypass: [Errno 13] Permission denied: 'C:\\\\Users\\\\taran\\\\AppData\\\\Local\\\\FirestormOS_x64\\\\cef_cache\\\\9584\\\\Local State'",
+      "timestamp": 1786727711
+    },
+    {
+      "id": 278,
+      "filename": "Preferences",
+      "filepath": "C:\\Users\\taran\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Preferences",
+      "status": "SAFE",
+      "finding": "Header read bypass: [Errno 13] Permission denied: 'C:\\\\Users\\\\taran\\\\AppData\\\\Local\\\\Google\\\\Chrome\\\\User Data\\\\Default\\\\Preferences'",
+      "timestamp": 1786727709
+    },
+    {
+      "id": 277,
+      "filename": "Preferences",
+      "filepath": "C:\\Users\\taran\\AppData\\Local\\BraveSoftware\\Brave-Browser\\User Data\\Default\\Preferences",
+      "status": "SAFE",
+      "finding": "Header read bypass: [Errno 13] Permission denied: 'C:\\\\Users\\\\taran\\\\AppData\\\\Local\\\\BraveSoftware\\\\Brave-Browser\\\\User Data\\\\Default\\\\Preferences'",
+      "timestamp": 1786727709
+    },
+    {
+      "id": 276,
+      "filename": "Local State",
+      "filepath": "C:\\Users\\taran\\AppData\\Local\\BraveSoftware\\Brave-Browser\\User Data\\Local State",
+      "status": "SAFE",
+      "finding": "Header read bypass: [Errno 13] Permission denied: 'C:\\\\Users\\\\taran\\\\AppData\\\\Local\\\\BraveSoftware\\\\Brave-Browser\\\\User Data\\\\Local State'",
+      "timestamp": 1786727709
+    },
+    {
+      "id": 275,
+      "filename": "Network Persistent State",
+      "filepath": "C:\\Users\\taran\\AppData\\Local\\FirestormOS_x64\\cef_cache\\28800\\Default\\Network\\Network Persistent State",
+      "status": "SAFE",
+      "finding": "Header read bypass: [Errno 13] Permission denied: 'C:\\\\Users\\\\taran\\\\AppData\\\\Local\\\\FirestormOS_x64\\\\cef_cache\\\\28800\\\\Default\\\\Network\\\\Network Persistent State'",
+      "timestamp": 1786727708
+    },
+    {
+      "id": 274,
+      "filename": "metadata.json",
+      "filepath": "C:\\Users\\taran\\AppData\\Local\\FirestormOS_x64\\cef_cache\\9584\\component_crx_cache\\metadata.json",
+      "status": "SAFE",
+      "finding": "Header read bypass: [Errno 13] Permission denied: 'C:\\\\Users\\\\taran\\\\AppData\\\\Local\\\\FirestormOS_x64\\\\cef_cache\\\\9584\\\\component_crx_cache\\\\metadata.json'",
+      "timestamp": 1786727706
+    },
+    {
+      "id": 273,
+      "filename": "agyhub_summaries_proto.pb",
+      "filepath": "C:\\Users\\taran\\.gemini\\antigravity\\agyhub_summaries_proto.pb",
+      "status": "SAFE",
+      "finding": "Header read bypass: [Errno 13] Permission denied: 'C:\\\\Users\\\\taran\\\\.gemini\\\\antigravity\\\\agyhub_summaries_proto.pb'",
+      "timestamp": 1786727699
+    },
+    {
+      "id": 272,
+      "filename": "jamhcnnkihinmdlkakkaopbjbbcngflc_120.0.6050.0_all_dgzfpknn7v3zslsbhrwu6bt44e.crx3",
+      "filepath": "C:\\Users\\taran\\AppData\\Local\\Temp\\chrome_BITS_9584_642306165\\jamhcnnkihinmdlkakkaopbjbbcngflc_120.0.6050.0_all_dgzfpknn7v3zslsbhrwu6bt44e.crx3",
+      "status": "SAFE",
+      "finding": "Header read bypass: [Errno 13] Permission denied: 'C:\\\\Users\\\\taran\\\\AppData\\\\Local\\\\Temp\\\\chrome_BITS_9584_642306165\\\\jamhcnnkihinmdlkakkaopbjbbcngflc_120.0.6050.0_all_dgzfpknn7v3zslsbhrwu6bt44e.crx3'",
+      "timestamp": 1786727694
+    },
+    {
+      "id": 271,
+      "filename": "Network Persistent State",
+      "filepath": "C:\\Users\\taran\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Network\\Network Persistent State",
+      "status": "SAFE",
+      "finding": "Header read bypass: [Errno 13] Permission denied: 'C:\\\\Users\\\\taran\\\\AppData\\\\Local\\\\Google\\\\Chrome\\\\User Data\\\\Default\\\\Network\\\\Network Persistent State'",
+      "timestamp": 1786727693
+    },
+    {
+      "id": 270,
+      "filename": "agyhub_summaries_proto.pb",
+      "filepath": "C:\\Users\\taran\\.gemini\\antigravity\\agyhub_summaries_proto.pb",
+      "status": "SAFE",
+      "finding": "Header read bypass: [Errno 13] Permission denied: 'C:\\\\Users\\\\taran\\\\.gemini\\\\antigravity\\\\agyhub_summaries_proto.pb'",
+      "timestamp": 1786727687
+    },
+    {
+      "id": 269,
+      "filename": "Local State",
+      "filepath": "C:\\Users\\taran\\AppData\\Local\\FirestormOS_x64\\cef_cache\\9584\\Local State",
+      "status": "SAFE",
+      "finding": "Header read bypass: [Errno 13] Permission denied: 'C:\\\\Users\\\\taran\\\\AppData\\\\Local\\\\FirestormOS_x64\\\\cef_cache\\\\9584\\\\Local State'",
+      "timestamp": 1786727682
+    },
+    {
+      "id": 268,
+      "filename": "metadata.json",
+      "filepath": "C:\\Users\\taran\\AppData\\Local\\FirestormOS_x64\\cef_cache\\9584\\component_crx_cache\\metadata.json",
+      "status": "SAFE",
+      "finding": "Header read bypass: [Errno 13] Permission denied: 'C:\\\\Users\\\\taran\\\\AppData\\\\Local\\\\FirestormOS_x64\\\\cef_cache\\\\9584\\\\component_crx_cache\\\\metadata.json'",
+      "timestamp": 1786727677
+    },
+    {
+      "id": 267,
+      "filename": "config.json",
+      "filepath": "C:\\Users\\taran\\.gemini\\config\\config.json",
+      "status": "SAFE",
+      "finding": "Header read bypass: [Errno 13] Permission denied: 'C:\\\\Users\\\\taran\\\\.gemini\\\\config\\\\config.json'",
+      "timestamp": 1786727671
+    },
+    {
+      "id": 266,
+      "filename": "agyhub_summaries_proto.pb",
+      "filepath": "C:\\Users\\taran\\.gemini\\antigravity\\agyhub_summaries_proto.pb",
+      "status": "SAFE",
+      "finding": "Header read bypass: [Errno 13] Permission denied: 'C:\\\\Users\\\\taran\\\\.gemini\\\\antigravity\\\\agyhub_summaries_proto.pb'",
+      "timestamp": 1786727670
+    },
+    {
+      "id": 265,
+      "filename": "Local State",
+      "filepath": "C:\\Users\\taran\\AppData\\Local\\BraveSoftware\\Brave-Browser\\User Data\\Local State",
+      "status": "SAFE",
+      "finding": "Header read bypass: [Errno 13] Permission denied: 'C:\\\\Users\\\\taran\\\\AppData\\\\Local\\\\BraveSoftware\\\\Brave-Browser\\\\User Data\\\\Local State'",
+      "timestamp": 1786727670
+    },
+    {
+      "id": 264,
+      "filename": "c591d00c-a042-4f44-a3ee-b99e2fc458fc.pbtxt",
+      "filepath": "C:\\Users\\taran\\.gemini\\antigravity\\annotations\\c591d00c-a042-4f44-a3ee-b99e2fc458fc.pbtxt",
+      "status": "SAFE",
+      "finding": "Header read bypass: [Errno 13] Permission denied: 'C:\\\\Users\\\\taran\\\\.gemini\\\\antigravity\\\\annotations\\\\c591d00c-a042-4f44-a3ee-b99e2fc458fc.pbtxt'",
+      "timestamp": 1786727669
+    },
+    {
+      "id": 263,
+      "filename": "Preferences",
+      "filepath": "C:\\Users\\taran\\AppData\\Local\\BraveSoftware\\Brave-Browser\\User Data\\Default\\Preferences",
+      "status": "SAFE",
+      "finding": "Header read bypass: [Errno 13] Permission denied: 'C:\\\\Users\\\\taran\\\\AppData\\\\Local\\\\BraveSoftware\\\\Brave-Browser\\\\User Data\\\\Default\\\\Preferences'",
+      "timestamp": 1786727668
+    },
+    {
+      "id": 262,
+      "filename": "Local State",
+      "filepath": "C:\\Users\\taran\\AppData\\Local\\FirestormOS_x64\\cef_cache\\9584\\Local State",
+      "status": "SAFE",
+      "finding": "Header read bypass: [Errno 13] Permission denied: 'C:\\\\Users\\\\taran\\\\AppData\\\\Local\\\\FirestormOS_x64\\\\cef_cache\\\\9584\\\\Local State'",
+      "timestamp": 1786727667
+    },
+    {
+      "id": 261,
+      "filename": "hfnkpimlhhgieaddgfemjhofmfblmnib_10714_all_acp5qgiuxeez36lbjlxhaazoq2bq.crx3",
+      "filepath": "C:\\Users\\taran\\AppData\\Local\\Temp\\chrome_BITS_9584_814158884\\hfnkpimlhhgieaddgfemjhofmfblmnib_10714_all_acp5qgiuxeez36lbjlxhaazoq2bq.crx3",
+      "status": "SAFE",
+      "finding": "Header read bypass: [Errno 13] Permission denied: 'C:\\\\Users\\\\taran\\\\AppData\\\\Local\\\\Temp\\\\chrome_BITS_9584_814158884\\\\hfnkpimlhhgieaddgfemjhofmfblmnib_10714_all_acp5qgiuxeez36lbjlxhaazoq2bq.crx3'",
+      "timestamp": 1786727665
+    },
+    {
+      "id": 260,
+      "filename": "metadata.json",
+      "filepath": "C:\\Users\\taran\\AppData\\Local\\FirestormOS_x64\\cef_cache\\9584\\component_crx_cache\\metadata.json",
+      "status": "SAFE",
+      "finding": "Header read bypass: [Errno 13] Permission denied: 'C:\\\\Users\\\\taran\\\\AppData\\\\Local\\\\FirestormOS_x64\\\\cef_cache\\\\9584\\\\component_crx_cache\\\\metadata.json'",
+      "timestamp": 1786727662
+    },
+    {
+      "id": 259,
+      "filename": "agyhub_summaries_proto.pb",
+      "filepath": "C:\\Users\\taran\\.gemini\\antigravity\\agyhub_summaries_proto.pb",
+      "status": "SAFE",
+      "finding": "Header read bypass: [Errno 13] Permission denied: 'C:\\\\Users\\\\taran\\\\.gemini\\\\antigravity\\\\agyhub_summaries_proto.pb'",
+      "timestamp": 1786727659
+    },
+    {
+      "id": 258,
+      "filename": "Local State",
+      "filepath": "C:\\Users\\taran\\AppData\\Local\\FirestormOS_x64\\cef_cache\\29116\\Local State",
+      "status": "SAFE",
+      "finding": "Header read bypass: [Errno 13] Permission denied: 'C:\\\\Users\\\\taran\\\\AppData\\\\Local\\\\FirestormOS_x64\\\\cef_cache\\\\29116\\\\Local State'",
+      "timestamp": 1786727654
+    },
+    {
+      "id": 257,
+      "filename": "metadata.json",
+      "filepath": "C:\\Users\\taran\\AppData\\Local\\FirestormOS_x64\\cef_cache\\29116\\component_crx_cache\\metadata.json",
+      "status": "SAFE",
+      "finding": "Header read bypass: [Errno 13] Permission denied: 'C:\\\\Users\\\\taran\\\\AppData\\\\Local\\\\FirestormOS_x64\\\\cef_cache\\\\29116\\\\component_crx_cache\\\\metadata.json'",
+      "timestamp": 1786727654
+    },
+    {
+      "id": 256,
+      "filename": "Local State",
+      "filepath": "C:\\Users\\taran\\AppData\\Local\\BraveSoftware\\Brave-Browser\\User Data\\Local State",
+      "status": "SAFE",
+      "finding": "Header read bypass: [Errno 13] Permission denied: 'C:\\\\Users\\\\taran\\\\AppData\\\\Local\\\\BraveSoftware\\\\Brave-Browser\\\\User Data\\\\Local State'",
+      "timestamp": 1786727649
+    },
+    {
+      "id": 255,
+      "filename": "a7feea3d942d9ac2d13b52f209d6f69b54e33a0fccaca658156ecb566a54b1aa",
+      "filepath": "C:\\Users\\taran\\AppData\\Local\\Temp\\chrome_BITS_9584_816014717\\a7feea3d942d9ac2d13b52f209d6f69b54e33a0fccaca658156ecb566a54b1aa",
+      "status": "SAFE",
+      "finding": "Header read bypass: [Errno 13] Permission denied: 'C:\\\\Users\\\\taran\\\\AppData\\\\Local\\\\Temp\\\\chrome_BITS_9584_816014717\\\\a7feea3d942d9ac2d13b52f209d6f69b54e33a0fccaca658156ecb566a54b1aa'",
+      "timestamp": 1786727647
+    },
+    {
+      "id": 254,
+      "filename": "agyhub_summaries_proto.pb",
+      "filepath": "C:\\Users\\taran\\.gemini\\antigravity\\agyhub_summaries_proto.pb",
+      "status": "SAFE",
+      "finding": "Header read bypass: [Errno 13] Permission denied: 'C:\\\\Users\\\\taran\\\\.gemini\\\\antigravity\\\\agyhub_summaries_proto.pb'",
+      "timestamp": 1786727644
+    },
+    {
+      "id": 253,
+      "filename": "efniojlnjndmcbiieegkicadnoecjjef_1743_all_aduopeiaeb4mcsfrfykxniqbcy6q.crx3",
+      "filepath": "C:\\Users\\taran\\AppData\\Local\\Temp\\chrome_BITS_29116_796803489\\efniojlnjndmcbiieegkicadnoecjjef_1743_all_aduopeiaeb4mcsfrfykxniqbcy6q.crx3",
+      "status": "SAFE",
+      "finding": "Header read bypass: [Errno 13] Permission denied: 'C:\\\\Users\\\\taran\\\\AppData\\\\Local\\\\Temp\\\\chrome_BITS_29116_796803489\\\\efniojlnjndmcbiieegkicadnoecjjef_1743_all_aduopeiaeb4mcsfrfykxniqbcy6q.crx3'",
+      "timestamp": 1786727643
+    },
     {
       "id": 252,
       "filename": "agyhub_summaries_proto.pb",

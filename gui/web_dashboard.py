@@ -5,9 +5,9 @@ import json
 import os
 from core.scan_history import scan_history
 
-PORT = 9090
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-HISTORY_FILE_PATH = os.path.abspath(os.path.join(BASE_DIR, "..", "scan_history.json"))
+DEFAULT_PORT = 9090
+DATA_DIR = os.path.join(os.environ.get("LOCALAPPDATA", os.path.expanduser("~")), "SentinelZero")
+HISTORY_FILE_PATH = os.path.join(DATA_DIR, "scan_history.json")
 
 HTML_TEMPLATE = """<!DOCTYPE html>
 <html lang="en">
@@ -161,11 +161,11 @@ class DashboardRequestHandler(http.server.SimpleHTTPRequestHandler):
             if os.path.exists(HISTORY_FILE_PATH):
                 try:
                     with open(HISTORY_FILE_PATH, "r", encoding="utf-8") as f:
-                        data = json.load(f)
-                        self.wfile.write(json.dumps(data).encode('utf-8'))
+                        content = f.read()
+                        self.wfile.write(content.encode('utf-8'))
                         return
-                except Exception:
-                    pass
+                except Exception as e:
+                    print(f"[WebDashboard] Error reading history file: {e}")
 
             stats = scan_history.get_stats()
             self.wfile.write(json.dumps(stats).encode('utf-8'))
@@ -176,15 +176,17 @@ class DashboardRequestHandler(http.server.SimpleHTTPRequestHandler):
     def log_message(self, format, *args):
         pass  # Suppress HTTP logging
 
-def start_dashboard_server(port=PORT):
-    try:
-        server = socketserver.TCPServer(("127.0.0.1", port), DashboardRequestHandler)
-        print(f"[WebDashboard] Running live at http://localhost:{port}")
-        server.serve_forever()
-    except Exception as e:
-        print(f"[WebDashboard] Could not start server: {e}")
+def start_dashboard_server(port=DEFAULT_PORT):
+    for p in [port, 9090, 9091, 9092]:
+        try:
+            server = socketserver.TCPServer(("127.0.0.1", p), DashboardRequestHandler)
+            print(f"[WebDashboard] Running live at http://localhost:{p}")
+            server.serve_forever()
+            break
+        except Exception:
+            continue
 
-def run_dashboard_bg(port=PORT):
+def run_dashboard_bg(port=DEFAULT_PORT):
     t = threading.Thread(target=start_dashboard_server, args=(port,), daemon=True)
     t.start()
     return t

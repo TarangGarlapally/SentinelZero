@@ -3,11 +3,18 @@ import json
 import time
 import threading
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-HISTORY_FILE = os.path.abspath(os.path.join(BASE_DIR, "..", "scan_history.json"))
+# Use %LOCALAPPDATA%\SentinelZero\scan_history.json to avoid Windows Defender Controlled Folder Access write blocks
+DATA_DIR = os.path.join(os.environ.get("LOCALAPPDATA", os.path.expanduser("~")), "SentinelZero")
+if not os.path.exists(DATA_DIR):
+    try:
+        os.makedirs(DATA_DIR, exist_ok=True)
+    except Exception:
+        pass
+
+HISTORY_FILE = os.path.join(DATA_DIR, "scan_history.json")
 
 class ScanHistoryManager:
-    """Thread-safe scan history tracker for all downloads."""
+    """Thread-safe scan history tracker stored in %LOCALAPPDATA% to prevent Controlled Folder Access blocks."""
 
     def __init__(self, max_entries=200):
         self.max_entries = max_entries
