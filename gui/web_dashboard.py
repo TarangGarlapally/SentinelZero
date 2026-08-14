@@ -12,7 +12,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Sentinel Zero - Security Threat Dashboard</title>
+    <title>Sentinel Zero - Security Protection Dashboard</title>
     <style>
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #0f172a; color: #f8fafc; margin: 0; padding: 20px; }
         .header { display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #1e293b; padding-bottom: 15px; }
@@ -26,12 +26,15 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         table { width: 100%; border-collapse: collapse; margin-top: 15px; }
         th, td { padding: 12px; text-align: left; border-bottom: 1px solid #334155; font-size: 14px; }
         th { color: #94a3b8; font-weight: 600; text-transform: uppercase; font-size: 12px; }
+        .badge-safe { background: #166534; color: #4ade80; padding: 4px 10px; border-radius: 6px; font-weight: bold; font-size: 12px; }
         .badge-threat { background: #991b1b; color: #f87171; padding: 4px 10px; border-radius: 6px; font-weight: bold; font-size: 12px; }
+        .filter-btn { background: #334155; color: #f8fafc; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-weight: bold; margin-right: 8px; }
+        .filter-btn.active { background: #0284c7; color: white; }
     </style>
 </head>
 <body>
     <div class="header">
-        <h1>🛡️ Sentinel Zero - Real-Time Threat Guard</h1>
+        <h1>🛡️ Sentinel Zero - Protection Dashboard</h1>
         <span class="badge">SYSTEM PROTECTED & ACTIVE</span>
     </div>
 
@@ -39,66 +42,99 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         <div class="card">
             <h3>Total Downloads Verified</h3>
             <div class="stat" id="stat-scanned">0</div>
-            <p>Clean downloads pass silently</p>
+            <p>Locked & verified clean before execution</p>
         </div>
         <div class="card">
-            <h3>System Status</h3>
-            <div class="stat status-ok">SECURE</div>
-            <p>0 Active Infostealer Threats</p>
+            <h3>Clean & Successful Scans</h3>
+            <div class="stat status-ok" id="stat-safe">0</div>
+            <p>Unlocked & verified safe</p>
         </div>
         <div class="card">
-            <h3>Blocked Threats</h3>
+            <h3>Quarantined Threats</h3>
             <div class="stat" style="color:#f87171;" id="stat-threats">0</div>
-            <p>Blocked & Quarantined</p>
+            <p>Blocked & quarantined</p>
         </div>
     </div>
 
     <div class="card" style="margin-top: 25px;">
-        <h3>🚨 Blocked Threat Incident Log</h3>
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+            <h3>📋 Download Inspection History & Scan Logs</h3>
+            <div>
+                <button class="filter-btn active" id="filter-all" onclick="setFilter('ALL')">All Scans</button>
+                <button class="filter-btn" id="filter-safe" onclick="setFilter('SAFE')">Clean Scans Only</button>
+                <button class="filter-btn" id="filter-threat" onclick="setFilter('QUARANTINED')">Threats Only</button>
+            </div>
+        </div>
         <table>
             <thead>
                 <tr>
-                    <th>Threat Name</th>
-                    <th>Intercepted Path</th>
+                    <th>File Name</th>
+                    <th>Downloaded Path</th>
                     <th>Status</th>
-                    <th>Threat Reason / Detection</th>
+                    <th>Scan Findings / Verification</th>
                     <th>Timestamp</th>
                 </tr>
             </thead>
             <tbody id="history-table">
-                <tr><td colspan="5">Loading threat incidents...</td></tr>
+                <tr><td colspan="5">Loading download history...</td></tr>
             </tbody>
         </table>
     </div>
 
     <script>
+        let currentFilter = 'ALL';
+        let rawHistory = [];
+
+        function setFilter(filter) {
+            currentFilter = filter;
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            if (filter === 'ALL') document.getElementById('filter-all').classList.add('active');
+            if (filter === 'SAFE') document.getElementById('filter-safe').classList.add('active');
+            if (filter === 'QUARANTINED') document.getElementById('filter-threat').classList.add('active');
+            renderTable();
+        }
+
+        function renderTable() {
+            const tbody = document.getElementById('history-table');
+            let filtered = rawHistory;
+            if (currentFilter === 'SAFE') filtered = rawHistory.filter(h => h.status === 'SAFE');
+            if (currentFilter === 'QUARANTINED') filtered = rawHistory.filter(h => h.status === 'QUARANTINED');
+
+            if (filtered.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; padding:20px; color:#94a3b8;">No matching downloads found in this view.</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = filtered.map(item => `
+                <tr>
+                    <td style="font-weight:bold; color:${item.status === 'SAFE' ? '#f8fafc' : '#f87171'};">${item.filename}</td>
+                    <td style="color:#94a3b8; font-family:monospace; font-size:12px;">${item.filepath}</td>
+                    <td>
+                        <span class="${item.status === 'SAFE' ? 'badge-safe' : 'badge-threat'}">
+                            ${item.status === 'SAFE' ? '✓ SAFE' : '🚨 QUARANTINED'}
+                        </span>
+                    </td>
+                    <td>${item.finding}</td>
+                    <td style="color:#94a3b8; font-size:12px;">${new Date(item.timestamp * 1000).toLocaleTimeString()}</td>
+                </tr>
+            `).join('');
+        }
+
         async function loadHistory() {
             try {
                 const res = await fetch('/api/stats');
                 const data = await res.json();
                 
                 document.getElementById('stat-scanned').innerText = data.scanned_count || 0;
+                rawHistory = data.history || [];
                 
-                const history = (data.history || []).filter(h => h.status === 'QUARANTINED');
-                document.getElementById('stat-threats').innerText = history.length;
+                const safeCount = rawHistory.filter(h => h.status === 'SAFE').length;
+                const threatCount = rawHistory.filter(h => h.status === 'QUARANTINED').length;
                 
-                const tbody = document.getElementById('history-table');
-                if (history.length === 0) {
-                    tbody.innerHTML = '<tr><td colspan="5" style="color:#4ade80; text-align:center; padding:20px;">✅ Zero Threats Detected. Genuine downloads pass silently without log clutter.</td></tr>';
-                    return;
-                }
+                document.getElementById('stat-safe').innerText = safeCount;
+                document.getElementById('stat-threats').innerText = threatCount;
                 
-                tbody.innerHTML = history.map(item => `
-                    <tr>
-                        <td style="font-weight:bold; color:#f87171;">${item.filename}</td>
-                        <td style="color:#94a3b8; font-family:monospace; font-size:12px;">${item.filepath}</td>
-                        <td>
-                            <span class="badge-threat">🚨 BLOCKED & QUARANTINED</span>
-                        </td>
-                        <td>${item.finding}</td>
-                        <td style="color:#94a3b8; font-size:12px;">${new Date(item.timestamp * 1000).toLocaleTimeString()}</td>
-                    </tr>
-                `).join('');
+                renderTable();
             } catch(e) {}
         }
         loadHistory();

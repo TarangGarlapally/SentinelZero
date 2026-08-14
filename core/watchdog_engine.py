@@ -9,8 +9,9 @@ class BrowserDownloadHandler(FileSystemEventHandler):
     """
     Universal Browser Download Interceptor:
     Monitors all system folders for completed web browser downloads.
-    Silently unlocks clean/genuine files without popup notifications or history clutter.
-    ONLY triggers Windows notifications and logs threats when a genuine malware/stealer is blocked!
+    Silently unlocks clean files without annoying popup notifications, 
+    while recording both Safe Scans and Blocked Threats in the Security Log.
+    Popups trigger ONLY when genuine malware/threats are blocked.
     """
 
     TEMP_DOWNLOAD_EXTENSIONS = ['.crdownload', '.part', '.tmp', '.download']
@@ -59,10 +60,11 @@ class BrowserDownloadHandler(FileSystemEventHandler):
         is_clean, result_msg = self.scanner.scan_file(filepath)
 
         if is_clean:
-            # 3A. Silently unlock clean/genuine files (NO notification, NO log clutter)
+            # 3A. Unlock clean file silently & record SAFE entry in activity history
             self.locker.unlock_file(filepath)
+            scan_history.record_scan(filepath, "SAFE", result_msg)
         else:
-            # 3B. Block genuine threat, move to quarantine, record log, and trigger notification
+            # 3B. Block threat, move to quarantine, record QUARANTINED log, and trigger alert
             quarantine_path = self.locker.quarantine_file(filepath, threat_info=result_msg)
             scan_history.record_scan(filepath, "QUARANTINED", result_msg)
             if self.notify_callback:
