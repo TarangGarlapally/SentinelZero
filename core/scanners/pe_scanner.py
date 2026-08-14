@@ -1,6 +1,7 @@
 import os
 import math
 import pefile
+from ..signature_verifier import verify_digital_signature
 
 class PEScanner:
     """Inspects Windows Executable binaries for packed stealers, high entropy, and credential-harvesting APIs."""
@@ -37,6 +38,11 @@ class PEScanner:
         if not os.path.exists(filepath):
             return True, "File not found"
 
+        # 1. Digital Signature Check (NVIDIA, Linden Lab, Microsoft, etc.)
+        is_signed, publisher = verify_digital_signature(filepath)
+        if is_signed:
+            return True, f"Verified Digitally Signed Executable ({publisher})"
+
         try:
             pe = pefile.PE(filepath)
             
@@ -45,7 +51,7 @@ class PEScanner:
             for section in pe.sections:
                 entropy = self._calculate_entropy(section.get_data())
                 sec_name = section.Name.decode("latin-1", errors="ignore").rstrip("\x00")
-                if entropy > 7.2:
+                if entropy > 7.4:  # Raised threshold to reduce packed false positives on un-signed installers
                     high_entropy_sections.append((sec_name, entropy))
 
             # Check Import Table for Credential Stealer APIs
@@ -60,8 +66,9 @@ class PEScanner:
 
             pe.close()
 
-            if high_entropy_sections and len(suspicious_apis) >= 2:
-                return False, f"Packed executable payload detected! (Entropy: {high_entropy_sections[0][1]:.2f}, Stealer APIs: {', '.join(suspicious_apis[:3])})"
+            # Un-signed binaries requiring 3+ stealer APIs AND high entropy section
+            if high_entropy_sections and len(suspicious_apis) >= 3:
+                return False, f"Unsigned packed stealer payload detected! (Entropy: {high_entropy_sections[0][1]:.2f}, APIs: {', '.join(suspicious_apis[:3])})"
 
             return True, "Clean Executable"
         except pefile.PEFormatError:
