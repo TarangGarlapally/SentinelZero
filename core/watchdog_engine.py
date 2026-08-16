@@ -101,6 +101,18 @@ class WatchdogEngine:
                 print(f"[WatchdogEngine] Watching for Browser Downloads in: {path}")
         self.observer.start()
 
+    def update_watch_paths(self, new_paths):
+        """Dynamically updates watched paths without shutting down Watchdog thread."""
+        self.watch_paths = new_paths
+        try:
+            self.observer.unschedule_all()
+            for path in self.watch_paths:
+                if os.path.exists(path):
+                    self.observer.schedule(self.handler, path, recursive=True)
+                    print(f"[WatchdogEngine] Re-scheduled Watching in: {path}")
+        except Exception as e:
+            print(f"[WatchdogEngine] Error updating watch paths: {e}")
+
     def stop(self):
         self.observer.stop()
         self.observer.join()

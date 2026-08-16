@@ -29,16 +29,22 @@ def load_config():
             return json.load(f)
     return {
         "app_name": "Sentinel Zero",
-        "version": "1.3.0",
+        "version": "1.4.1",
         "autostart_enabled": True,
         "quarantine_dir": os.path.join(BASE_DIR, "Quarantine"),
-        "watch_directories": [os.path.expanduser(r"~\Downloads")],
+        "watch_mode": "ALL",
+        "watch_directories": [os.path.expanduser("~")],
+        "custom_watch_directories": [
+            os.path.expanduser(r"~\Downloads"),
+            os.path.expanduser(r"~\Desktop"),
+            os.path.expanduser(r"~\Documents")
+        ],
         "cookie_guard": {"enabled": True, "browser_cookie_paths": []}
     }
 
 def main():
     print("=" * 60)
-    print("      Sentinel Zero - Proactive System Guard v1.3.0")
+    print("      Sentinel Zero - Proactive System Guard v1.4.1")
     print("=" * 60)
 
     config = load_config()
@@ -50,22 +56,19 @@ def main():
     updater = FeedUpdater()
     threading.Thread(target=updater.update_rules, daemon=True).start()
 
-    # 3. Start Local Web Dashboard (http://localhost:9999)
-    run_dashboard_bg(port=9999)
-
-    # 4. Initialize Core Engines
+    # 3. Initialize Core Engines
     quarantine_dir = config.get("quarantine_dir", os.path.join(BASE_DIR, "Quarantine"))
     locker = FileLocker(quarantine_dir)
     scanner = UniversalScanner(vt_api_key=config.get("virustotal_api_key"))
 
-    # 5. Setup System Tray & Notifications
+    # 4. Setup System Tray & Notifications
     tray = SystemTrayApp(
         on_open_quarantine=lambda: open_quarantine_gui(quarantine_dir),
         on_exit=lambda: stop_all(watchdog, cookie_guard)
     )
 
-    # 6. Initialize Real-Time Watchdog Engine for Downloads
-    watch_paths = config.get("watch_directories", [])
+    # 5. Initialize Real-Time Watchdog Engine for Downloads
+    watch_paths = config.get("watch_directories", [os.path.expanduser("~")])
     watchdog = WatchdogEngine(
         watch_paths=watch_paths,
         locker=locker,
@@ -73,6 +76,15 @@ def main():
         notify_callback=tray.show_notification
     )
     watchdog.start()
+
+    # Callback when folder configuration is updated from Web Dashboard
+    def handle_config_update(new_config):
+        new_paths = new_config.get("watch_directories", [])
+        print(f"[Sentinel Zero] Updating folder monitoring targets: {new_paths}")
+        watchdog.update_watch_paths(new_paths)
+
+    # 6. Start Local Web Dashboard (http://localhost:9090) with Config Callback
+    run_dashboard_bg(port=9090, on_config_updated=handle_config_update)
 
     # 7. Initialize Cookie Guard
     cookie_paths = config.get("cookie_guard", {}).get("browser_cookie_paths", [])

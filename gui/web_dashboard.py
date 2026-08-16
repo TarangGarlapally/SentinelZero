@@ -5,9 +5,12 @@ import json
 import os
 from core.scan_history import scan_history
 
-DEFAULT_PORT = 9999
+DEFAULT_PORT = 9090
 DATA_DIR = os.path.join(os.environ.get("LOCALAPPDATA", os.path.expanduser("~")), "SentinelZero")
 HISTORY_FILE_PATH = os.path.join(DATA_DIR, "scan_history.json")
+CONFIG_FILE_PATH = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "config.json")
+
+ON_CONFIG_UPDATED_CALLBACK = None
 
 HTML_TEMPLATE = """<!DOCTYPE html>
 <html lang="en">
@@ -31,6 +34,13 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         .badge-threat { background: #991b1b; color: #f87171; padding: 4px 10px; border-radius: 6px; font-weight: bold; font-size: 12px; }
         .filter-btn { background: #334155; color: #f8fafc; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-weight: bold; margin-right: 8px; }
         .filter-btn.active { background: #0284c7; color: white; }
+        .save-btn { background: #0284c7; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 14px; margin-top: 15px; }
+        .save-btn:hover { background: #0369a1; }
+        .form-group { margin-bottom: 15px; }
+        .checkbox-group { display: flex; flex-direction: column; gap: 8px; margin-top: 8px; }
+        .checkbox-label { display: flex; align-items: center; gap: 8px; font-size: 14px; cursor: pointer; }
+        .input-text { width: 100%; max-width: 500px; padding: 8px 12px; background: #0f172a; border: 1px solid #334155; color: white; border-radius: 6px; font-family: monospace; }
+        .toast-msg { background: #166534; color: #4ade80; padding: 10px; border-radius: 6px; margin-top: 10px; display: none; font-weight: bold; }
     </style>
 </head>
 <body>
@@ -57,6 +67,49 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         </div>
     </div>
 
+    <!-- Folder Monitoring Configuration Section -->
+    <div class="card" style="margin-top: 25px;">
+        <h3>⚙️ Folder Monitoring Configuration</h3>
+        <p style="color: #94a3b8; font-size: 14px; margin-bottom: 15px;">Choose whether to monitor your entire user profile or select specific folders to watch for web downloads.</p>
+        
+        <div class="form-group">
+            <label class="checkbox-label" style="font-weight: bold; font-size: 15px;">
+                <input type="radio" name="watch_mode" value="ALL" id="mode-all" onchange="toggleMode()">
+                🌐 Monitor All System Folders (C:\\Users\\taran)
+            </label>
+        </div>
+
+        <div class="form-group">
+            <label class="checkbox-label" style="font-weight: bold; font-size: 15px;">
+                <input type="radio" name="watch_mode" value="CUSTOM" id="mode-custom" onchange="toggleMode()">
+                📁 Choose Specific Folders (Multiple)
+            </label>
+        </div>
+
+        <div id="custom-folders-panel" style="margin-left: 25px; padding-left: 15px; border-left: 2px solid #334155; display: none;">
+            <div class="checkbox-group">
+                <label class="checkbox-label">
+                    <input type="checkbox" class="custom-dir-check" value="C:\\Users\\taran\\Downloads"> Downloads Folder (<code style="color:#38bdf8;">C:\\Users\\taran\\Downloads</code>)
+                </label>
+                <label class="checkbox-label">
+                    <input type="checkbox" class="custom-dir-check" value="C:\\Users\\taran\\Desktop"> Desktop Folder (<code style="color:#38bdf8;">C:\\Users\\taran\\Desktop</code>)
+                </label>
+                <label class="checkbox-label">
+                    <input type="checkbox" class="custom-dir-check" value="C:\\Users\\taran\\Documents"> Documents Folder (<code style="color:#38bdf8;">C:\\Users\\taran\\Documents</code>)
+                </label>
+            </div>
+            
+            <div style="margin-top: 15px;">
+                <label style="font-size: 13px; color: #94a3b8;">Additional Custom Folder Paths (comma-separated):</label><br>
+                <input type="text" id="extra-custom-paths" class="input-text" placeholder="e.g. C:\\Games, D:\\Downloads" style="margin-top: 5px;">
+            </div>
+        </div>
+
+        <button class="save-btn" onclick="saveFolderConfig()">💾 Save Folder Monitoring Settings</button>
+        <div class="toast-msg" id="save-toast">✓ Folder Monitoring Configuration Saved & Active!</div>
+    </div>
+
+    <!-- History Table -->
     <div class="card" style="margin-top: 25px;">
         <div style="display:flex; justify-content:space-between; align-items:center;">
             <h3>📋 Download Inspection History & Scan Logs</h3>
@@ -85,6 +138,71 @@ HTML_TEMPLATE = """<!DOCTYPE html>
     <script>
         let currentFilter = 'ALL';
         let rawHistory = [];
+
+        function toggleMode() {
+            const isCustom = document.getElementById('mode-custom').checked;
+            document.getElementById('custom-folders-panel').style.display = isCustom ? 'block' : 'none';
+        }
+
+        async function loadConfig() {
+            try {
+                const res = await fetch('/api/config');
+                const config = await res.json();
+                
+                const mode = config.watch_mode || "ALL";
+                if (mode === "ALL") {
+                    document.getElementById('mode-all').checked = true;
+                } else {
+                    document.getElementById('mode-custom').checked = true;
+                }
+                toggleMode();
+
+                const customDirs = config.custom_watch_directories || ["C:\\\\Users\\\\taran\\\\Downloads", "C:\\\\Users\\\\taran\\\\Desktop", "C:\\\\Users\\\\taran\\\\Documents"];
+                document.querySelectorAll('.custom-dir-check').forEach(chk => {
+                    chk.checked = customDirs.includes(chk.value);
+                });
+
+                const extraDirs = customDirs.filter(d => !["C:\\\\Users\\\\taran\\\\Downloads", "C:\\\\Users\\\\taran\\\\Desktop", "C:\\\\Users\\\\taran\\\\Documents"].includes(d));
+                document.getElementById('extra-custom-paths').value = extraDirs.join(', ');
+            } catch(e) {}
+        }
+
+        async function saveFolderConfig() {
+            const modeAll = document.getElementById('mode-all').checked;
+            const watchMode = modeAll ? "ALL" : "CUSTOM";
+            
+            let selectedDirs = [];
+            document.querySelectorAll('.custom-dir-check:checked').forEach(chk => {
+                selectedDirs.push(chk.value);
+            });
+
+            const extraInput = document.getElementById('extra-custom-paths').value;
+            if (extraInput.trim()) {
+                const extras = extraInput.split(',').map(s => s.trim()).filter(s => s.length > 0);
+                selectedDirs = selectedDirs.concat(extras);
+            }
+
+            const payload = {
+                watch_mode: watchMode,
+                custom_watch_directories: selectedDirs
+            };
+
+            try {
+                const res = await fetch('/api/config', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const result = await res.json();
+                if (result.success) {
+                    const toast = document.getElementById('save-toast');
+                    toast.style.display = 'block';
+                    setTimeout(() => toast.style.display = 'none', 4000);
+                }
+            } catch(e) {
+                alert("Error saving configuration!");
+            }
+        }
 
         function setFilter(filter) {
             currentFilter = filter;
@@ -139,6 +257,8 @@ HTML_TEMPLATE = """<!DOCTYPE html>
                 renderTable();
             } catch(e) {}
         }
+        
+        loadConfig();
         loadHistory();
         setInterval(loadHistory, 3000);
     </script>
@@ -169,12 +289,65 @@ class DashboardRequestHandler(http.server.SimpleHTTPRequestHandler):
 
             stats = scan_history.get_stats()
             self.wfile.write(json.dumps(stats).encode('utf-8'))
+        elif self.path == '/api/config':
+            self.send_response(200)
+            self.send_header('Content-type', 'application/json')
+            self.end_headers()
+            if os.path.exists(CONFIG_FILE_PATH):
+                with open(CONFIG_FILE_PATH, "r", encoding="utf-8") as f:
+                    self.wfile.write(f.read().encode('utf-8'))
+            else:
+                self.wfile.write(json.dumps({}).encode('utf-8'))
         else:
             self.send_response(404)
             self.end_headers()
 
+    def do_POST(self):
+        if self.path == '/api/config':
+            content_length = int(self.headers.get('Content-Length', 0))
+            post_data = self.rfile.read(content_length)
+            try:
+                data = json.loads(post_data.decode('utf-8'))
+                
+                # Update config.json
+                current_config = {}
+                if os.path.exists(CONFIG_FILE_PATH):
+                    with open(CONFIG_FILE_PATH, "r", encoding="utf-8") as f:
+                        current_config = json.load(f)
+                
+                watch_mode = data.get("watch_mode", "ALL")
+                custom_dirs = data.get("custom_watch_directories", [])
+
+                current_config["watch_mode"] = watch_mode
+                current_config["custom_watch_directories"] = custom_dirs
+
+                if watch_mode == "ALL":
+                    current_config["watch_directories"] = ["C:\\Users\\taran"]
+                else:
+                    current_config["watch_directories"] = custom_dirs
+
+                with open(CONFIG_FILE_PATH, "w", encoding="utf-8") as f:
+                    json.dump(current_config, f, indent=2)
+
+                if ON_CONFIG_UPDATED_CALLBACK:
+                    ON_CONFIG_UPDATED_CALLBACK(current_config)
+
+                self.send_response(200)
+                self.send_header('Content-type', 'application/json')
+                self.end_headers()
+                self.wfile.write(json.dumps({"success": True, "config": current_config}).encode('utf-8'))
+                return
+            except Exception as e:
+                self.send_response(500)
+                self.end_headers()
+                self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode('utf-8'))
+
     def log_message(self, format, *args):
         pass  # Suppress HTTP logging
+
+def set_config_updated_callback(callback):
+    global ON_CONFIG_UPDATED_CALLBACK
+    ON_CONFIG_UPDATED_CALLBACK = callback
 
 def start_dashboard_server(port=DEFAULT_PORT):
     for p in [port, 9090, 9091, 9092]:
@@ -186,7 +359,9 @@ def start_dashboard_server(port=DEFAULT_PORT):
         except Exception:
             continue
 
-def run_dashboard_bg(port=DEFAULT_PORT):
+def run_dashboard_bg(port=DEFAULT_PORT, on_config_updated=None):
+    if on_config_updated:
+        set_config_updated_callback(on_config_updated)
     t = threading.Thread(target=start_dashboard_server, args=(port,), daemon=True)
     t.start()
     return t
