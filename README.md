@@ -1,4 +1,4 @@
-# Sentinel Zero - Proactive System Guard v1.4.0
+# Sentinel Zero - Proactive System Guard v1.4.3
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Python: 3.10+](https://img.shields.io/badge/Python-3.10%2B-brightgreen.svg)](https://www.python.org/)
@@ -11,41 +11,42 @@ Unlike traditional reactive antivirus scanners that analyze files *after* they a
 
 ---
 
-## Downloads & Installation
+## 📥 Downloads & Installation
 
-### Option 1: Standalone Windows App (No Python Required)
-1. Download **`SentinelZero-Setup.exe`** (32.6 MB) from the [Releases](https://github.com/TarangGarlapally/SentinelZero/releases) page.
-2. Double-click **`SentinelZero-Setup.exe`** to run Sentinel Zero directly as a native Windows GUI app.
-3. Sentinel Zero runs silently in your System Tray and opens the Web Security Dashboard at **`http://localhost:9090`**.
+### Option A: Automated PowerShell Web Installer (Recommended)
+Open **PowerShell** and paste this 1-line command for instant background setup without Smart App Control blocks:
+```powershell
+irm https://raw.githubusercontent.com/TarangGarlapally/SentinelZero/master/install.ps1 | iex
+```
 
-### Option 2: Run from Source / Python
+### Option B: Windows Setup Wizard (.exe)
+1. Download **`SentinelZero-Setup-v1.4.3.exe`** (33 MB) from the [Official Releases Page](https://github.com/TarangGarlapally/SentinelZero/releases/tag/v1.4.3).
+2. If Windows 11 Smart App Control flags the downloaded installer:
+   - **Method 1**: Run **`unblock_and_setup.bat`** (included in the release) to automatically unblock and launch the installer.
+   - **Method 2**: Right-click `SentinelZero-Setup-v1.4.3.exe` $\rightarrow$ **Properties** $\rightarrow$ check **Unblock** at the bottom $\rightarrow$ click **Apply**.
+
+### Option C: Run from Source / Python
 ```bash
 # 1. Clone the repository
 git clone https://github.com/TarangGarlapally/SentinelZero.git
 cd SentinelZero
 
-# 2. Install dependencies
-pip install -r requirements.txt
-
-# 3. Create configuration from template
-copy config.example.json config.json
-
-# 4. Run Sentinel Zero
-python app.py
+# 2. Run automated installer
+powershell -ExecutionPolicy Bypass -File install.ps1
 ```
 
 ---
 
-## Universal Protection Engine (System-Wide ALL Folders)
+## Universal Protection Engine (System-Wide Folder Watcher & Multi-Select)
 
-* 🌐 **Full System Folder Watchdog (`C:\Users\taran` / `%USERPROFILE%`)**: Monitors **EVERY SINGLE FOLDER AND SUBDIRECTORY** on your PC (`Downloads`, `Desktop`, `Projects`, `Documents`, `Pictures`, `Videos`, custom locations), but **ONLY triggers when an actual web browser download completes** (detecting `.crdownload`, `.part`, `.tmp` $\rightarrow$ final file renames or Windows Zone.Identifier Mark-of-the-Web). *Local code builds, text edits, and IDE file saves are ignored completely!*
-* 📊 **Web Security Dashboard (`http://localhost:9090`)**: Local web interface displaying real-time protection statistics, live download interception logs (showing safe files & threats with exact scan findings), and an interactive Vault manager.
+* 🌐 **Full System Folder Watchdog (`C:\Users\taran` / `%USERPROFILE%`)**: Monitors **EVERY SINGLE FOLDER AND SUBDIRECTORY** on your PC or multi-select specific folders (`Downloads`, `Desktop`, `Documents`, `Pictures`, `Videos`, custom paths). *Local code builds, text edits, and IDE file saves are ignored completely!*
+* 📊 **Web Security Dashboard (`http://localhost:9090`)**: Local web interface displaying real-time protection statistics, live download inspection history (showing safe files & threats with exact scan findings), and interactive folder monitoring settings.
 * 🔒 **Universal Real-Time File Locking**: Intercepts completed downloads across all browsers (Chrome, Edge, Brave, Firefox, Opera) and applies native Windows API locks (`0` share mode). No application can touch or execute the file while scanning is active (scan time: 50ms – 400ms).
 * 🎯 **Infostealer Signature Engine**: Scans files against threat rules (`rules/infostealers.json`) targeting major stealer families (**Stealc, Lumma, RedLine, Raccoon, Vidar, Rhadamanthys, MetaStealer**).
 * 📦 **Compressed Archive Recursive Inspector**: Unpacks `.zip`, `.rar`, `.7z`, `.tar`, `.gz`, and `.iso` archives in memory to detect disguised executables, hidden payload scripts, double extensions (e.g. `invoice.pdf.exe`), and embedded runtimes.
 * ⚡ **PE Executable & Binary Analyzer**: Evaluates Shannon entropy on `.exe`, `.msi`, `.dll`, and `.scr` files to catch packed/encrypted malware and audits API import tables for credential-harvesting functions (`CryptUnprotectData`, `sqlite3_open`).
 * 📜 **Multi-Language Script Static Analyzer**: Heuristic AST parser for `.py`, `.ps1`, `.bat`, `.vbs`, and `.js` scripts targeting remote downloader calls (`urllib`, `requests`, `Invoke-WebRequest`, `WScript.Shell`), obfuscated Base64, and C2 IP literals.
-* 🛡️ **Browser Cookie Vault Guard**: Continuously monitors Chrome, Edge, Brave, and Firefox `Cookies` database files and immediately terminates any non-browser process attempting to harvest session tokens.
+* 🛡️ **Browser Cookie Vault Guard**: Continuously monitors Chrome, Edge, Brave, and Firefox `Cookies` database files and dynamically verifies Windows Authenticode digital signatures to protect session tokens against stealer malware.
 
 ---
 

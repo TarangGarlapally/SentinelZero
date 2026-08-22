@@ -49,5 +49,4 @@ Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChang
 
 [UninstallRun]
 Filename: "taskkill.exe"; Parameters: "/F /IM SentinelZero.exe"; Flags: runhidden
-Filename: "taskkill.exe"; Parameters: "/F /FI ""COMMANDLINE eq *app.py*"""; Flags: runhidden
-Filename: "powershell.exe"; Parameters: "-Command ""Get-CimInstance Win32_Process | Where-Object { $_.CommandLine -like '*app.py*' -or $_.CommandLine -like '*SentinelZero*' } | Stop-Process -Force -ErrorAction SilentlyContinue"""; Flags: runhidden
+Filename: "powershell.exe"; Parameters: "-Command ""Get-CimInstance Win32_Process | Where-Object {{ $_.CommandLine -like '*app.py*' -or $_.CommandLine -like '*SentinelZero*' }} | Stop-Process -Force -ErrorAction SilentlyContinue"""; Flags: runhidden
