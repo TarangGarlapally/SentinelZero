@@ -1,6 +1,6 @@
 ; Inno Setup Script for Sentinel Zero - Proactive System Guard
 #define MyAppName "Sentinel Zero"
-#define MyAppVersion "1.4.1"
+#define MyAppVersion "1.4.2"
 #define MyAppPublisher "Tarang Garlapally"
 #define MyAppURL "https://github.com/TarangGarlapally/SentinelZero"
 #define MyAppExeName "SentinelZero.exe"
@@ -18,7 +18,7 @@ DefaultGroupName={#MyAppName}
 DisableProgramGroupPage=yes
 LicenseFile=C:\Users\taran\Projects\SentinelZero\LICENSE
 OutputDir=C:\Users\taran\Projects\SentinelZero\dist
-OutputBaseFilename=SentinelZero-Setup-v1.4.1
+OutputBaseFilename=SentinelZero-Setup-v1.4.2
 Compression=lzma2/max
 SolidCompression=yes
 WizardStyle=modern

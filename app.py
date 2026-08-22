@@ -44,7 +44,7 @@ def load_config():
 
 def main():
     print("=" * 60)
-    print("      Sentinel Zero - Proactive System Guard v1.4.1")
+    print("      Sentinel Zero - Proactive System Guard v1.4.2")
     print("=" * 60)
 
     config = load_config()
