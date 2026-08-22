@@ -69,8 +69,8 @@ HTML_TEMPLATE = """<!DOCTYPE html>
 
     <!-- Folder Monitoring Configuration Section -->
     <div class="card" style="margin-top: 25px;">
-        <h3>⚙️ Folder Monitoring Configuration</h3>
-        <p style="color: #94a3b8; font-size: 14px; margin-bottom: 15px;">Choose whether to monitor your entire user profile or select specific folders to watch for web downloads.</p>
+        <h3>⚙️ Folder Monitoring Configuration (Multi-Select)</h3>
+        <p style="color: #94a3b8; font-size: 14px; margin-bottom: 15px;">Choose whether to monitor your entire user profile or multi-select specific folders to watch for web downloads.</p>
         
         <div class="form-group">
             <label class="checkbox-label" style="font-weight: bold; font-size: 15px;">
@@ -82,7 +82,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         <div class="form-group">
             <label class="checkbox-label" style="font-weight: bold; font-size: 15px;">
                 <input type="radio" name="watch_mode" value="CUSTOM" id="mode-custom" onchange="toggleMode()">
-                📁 Choose Specific Folders (Multiple)
+                📁 Choose Specific Folders (Multi-Select)
             </label>
         </div>
 
@@ -96,6 +96,12 @@ HTML_TEMPLATE = """<!DOCTYPE html>
                 </label>
                 <label class="checkbox-label">
                     <input type="checkbox" class="custom-dir-check" value="C:\\Users\\taran\\Documents"> Documents Folder (<code style="color:#38bdf8;">C:\\Users\\taran\\Documents</code>)
+                </label>
+                <label class="checkbox-label">
+                    <input type="checkbox" class="custom-dir-check" value="C:\\Users\\taran\\Pictures"> Pictures Folder (<code style="color:#38bdf8;">C:\\Users\\taran\\Pictures</code>)
+                </label>
+                <label class="checkbox-label">
+                    <input type="checkbox" class="custom-dir-check" value="C:\\Users\\taran\\Videos"> Videos Folder (<code style="color:#38bdf8;">C:\\Users\\taran\\Videos</code>)
                 </label>
             </div>
             
@@ -162,7 +168,8 @@ HTML_TEMPLATE = """<!DOCTYPE html>
                     chk.checked = customDirs.includes(chk.value);
                 });
 
-                const extraDirs = customDirs.filter(d => !["C:\\\\Users\\\\taran\\\\Downloads", "C:\\\\Users\\\\taran\\\\Desktop", "C:\\\\Users\\\\taran\\\\Documents"].includes(d));
+                const standardPaths = ["C:\\\\Users\\\\taran\\\\Downloads", "C:\\\\Users\\\\taran\\\\Desktop", "C:\\\\Users\\\\taran\\\\Documents", "C:\\\\Users\\\\taran\\\\Pictures", "C:\\\\Users\\\\taran\\\\Videos"];
+                const extraDirs = customDirs.filter(d => !standardPaths.includes(d));
                 document.getElementById('extra-custom-paths').value = extraDirs.join(', ');
             } catch(e) {}
         }

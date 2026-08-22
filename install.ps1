@@ -14,7 +14,7 @@ Write-Host "============================================================" -Foreg
 # 1. Folder Monitoring Setup Choice
 Write-Host "`n[?] Select Folder Monitoring Protection Mode:" -ForegroundColor Yellow
 Write-Host "  [1] Monitor All System Folders (C:\Users\taran) [Recommended]" -ForegroundColor White
-Write-Host "  [2] Choose Specific Folders (Downloads, Desktop, Documents)" -ForegroundColor White
+Write-Host "  [2] Choose Specific Folders (Multi-Select)" -ForegroundColor White
 
 $choice = Read-Host "Enter Choice [1 or 2] (Default: 1)"
 
@@ -25,12 +25,36 @@ if (Test-Path $configPath) {
 }
 
 if ($choice -eq "2") {
-    Write-Host "`n[*] Configuring Specific Folders Monitoring Mode..." -ForegroundColor Cyan
+    Write-Host "`n[?] Multi-Select Folders to Monitor (enter numbers separated by commas, e.g. 1,2 or 1,3):" -ForegroundColor Yellow
+    Write-Host "  [1] Downloads Folder ($env:USERPROFILE\Downloads)" -ForegroundColor White
+    Write-Host "  [2] Desktop Folder ($env:USERPROFILE\Desktop)" -ForegroundColor White
+    Write-Host "  [3] Documents Folder ($env:USERPROFILE\Documents)" -ForegroundColor White
+    Write-Host "  [4] Custom Directory Path" -ForegroundColor White
+
+    $folderChoices = Read-Host "Enter folder numbers (Default: 1,2)"
+    if (-not $folderChoices.Trim()) { $folderChoices = "1,2" }
+
+    $selectedPaths = @()
+    if ($folderChoices -like "*1*") { $selectedPaths += "$env:USERPROFILE\Downloads" }
+    if ($folderChoices -like "*2*") { $selectedPaths += "$env:USERPROFILE\Desktop" }
+    if ($folderChoices -like "*3*") { $selectedPaths += "$env:USERPROFILE\Documents" }
+    if ($folderChoices -like "*4*") {
+        $customPath = Read-Host "Enter custom directory path to monitor"
+        if ($customPath -and (Test-Path $customPath)) { $selectedPaths += $customPath }
+    }
+
+    if ($selectedPaths.Count -eq 0) {
+        $selectedPaths = @("$env:USERPROFILE\Downloads", "$env:USERPROFILE\Desktop")
+    }
+
+    Write-Host "`n[*] Selected ($($selectedPaths.Count)) Folders for Real-Time Monitoring:" -ForegroundColor Cyan
+    foreach ($p in $selectedPaths) { Write-Host "   - $p" -ForegroundColor Green }
+
     $config | Add-Member -MemberType NoteProperty -Name "watch_mode" -Value "CUSTOM" -Force
-    $config | Add-Member -MemberType NoteProperty -Name "watch_directories" -Value @("$env:USERPROFILE\Downloads", "$env:USERPROFILE\Desktop", "$env:USERPROFILE\Documents") -Force
-    $config | Add-Member -MemberType NoteProperty -Name "custom_watch_directories" -Value @("$env:USERPROFILE\Downloads", "$env:USERPROFILE\Desktop", "$env:USERPROFILE\Documents") -Force
+    $config | Add-Member -MemberType NoteProperty -Name "watch_directories" -Value $selectedPaths -Force
+    $config | Add-Member -MemberType NoteProperty -Name "custom_watch_directories" -Value $selectedPaths -Force
 } else {
-    Write-Host "`n[*] Configuring All System Folders Monitoring Mode..." -ForegroundColor Cyan
+    Write-Host "`n[*] Monitoring All System Folders (C:\Users\taran)..." -ForegroundColor Cyan
     $config | Add-Member -MemberType NoteProperty -Name "watch_mode" -Value "ALL" -Force
     $config | Add-Member -MemberType NoteProperty -Name "watch_directories" -Value @("$env:USERPROFILE") -Force
 }
