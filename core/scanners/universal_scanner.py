@@ -1,4 +1,5 @@
 import os
+import time
 from .blend_scanner import BlendScanner
 from .pe_scanner import PEScanner
 from .script_scanner import ScriptScanner
@@ -19,6 +20,20 @@ class UniversalScanner:
         self.signature_scanner = SignatureScanner()
         self.vt_scanner = VirusTotalScanner(api_key=vt_api_key)
 
+    def _read_header_safe(self, filepath):
+        """Reads file header with retry logic to allow browser flush to complete."""
+        header = b""
+        for _ in range(5):
+            try:
+                with open(filepath, "rb") as f:
+                    header = f.read(16)
+                    break
+            except PermissionError:
+                time.sleep(0.1)
+            except Exception:
+                break
+        return header
+
     def scan_file(self, filepath):
         if not os.path.exists(filepath):
             return True, "File no longer exists"
@@ -33,13 +48,9 @@ class UniversalScanner:
         if not vt_clean:
             return False, vt_msg
 
-        # 3. Route to specialized sub-scanners based on file header / extension
+        # 3. Read header safely with retry
         ext = os.path.splitext(filepath)[1].lower()
-        try:
-            with open(filepath, "rb") as f:
-                header = f.read(16)
-        except Exception as e:
-            return True, f"Header read bypass: {e}"
+        header = self._read_header_safe(filepath)
 
         if header.startswith(b"MZ") or ext in ['.exe', '.dll', '.msi', '.scr', '.sys']:
             return self.pe_scanner.scan(filepath)
@@ -56,4 +67,7 @@ class UniversalScanner:
         if ext in ['.pdf', '.docx', '.xlsx', '.doc', '.xls']:
             return self.doc_scanner.scan(filepath)
 
-        return True, "Passed all security checks"
+        if ext in ['.jpg', '.jpeg', '.png', '.gif', '.webp', '.mp4', '.mkv', '.mp3']:
+            return True, "✓ Clean Image / Media File"
+
+        return True, "✓ Passed all security checks"
