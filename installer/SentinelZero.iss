@@ -46,3 +46,8 @@ Name: "{userstartup}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: st
 
 [Run]
 Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: postinstall skipifsilent shellexec
+
+[UninstallRun]
+Filename: "taskkill.exe"; Parameters: "/F /IM SentinelZero.exe"; Flags: runhidden
+Filename: "taskkill.exe"; Parameters: "/F /FI ""COMMANDLINE eq *app.py*"""; Flags: runhidden
+Filename: "powershell.exe"; Parameters: "-Command ""Get-CimInstance Win32_Process | Where-Object { $_.CommandLine -like '*app.py*' -or $_.CommandLine -like '*SentinelZero*' } | Stop-Process -Force -ErrorAction SilentlyContinue"""; Flags: runhidden
