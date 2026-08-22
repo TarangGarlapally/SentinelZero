@@ -1,6 +1,6 @@
 ; Inno Setup Script for Sentinel Zero - Proactive System Guard
 #define MyAppName "Sentinel Zero"
-#define MyAppVersion "1.4.3"
+#define MyAppVersion "1.4.4"
 #define MyAppPublisher "Tarang Garlapally"
 #define MyAppURL "https://github.com/TarangGarlapally/SentinelZero"
 #define MyAppExeName "SentinelZero.exe"
@@ -18,7 +18,7 @@ DefaultGroupName={#MyAppName}
 DisableProgramGroupPage=yes
 LicenseFile=C:\Users\taran\Projects\SentinelZero\LICENSE
 OutputDir=C:\Users\taran\Projects\SentinelZero\dist
-OutputBaseFilename=SentinelZero-Setup-v1.4.3
+OutputBaseFilename=SentinelZero-Setup-v1.4.4
 Compression=lzma2/max
 SolidCompression=yes
 WizardStyle=modern
@@ -49,4 +49,4 @@ Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChang
 
 [UninstallRun]
 Filename: "taskkill.exe"; Parameters: "/F /IM SentinelZero.exe"; Flags: runhidden
-Filename: "powershell.exe"; Parameters: "-Command ""Get-CimInstance Win32_Process | Where-Object {{ $_.CommandLine -like '*app.py*' -or $_.CommandLine -like '*SentinelZero*' }} | Stop-Process -Force -ErrorAction SilentlyContinue"""; Flags: runhidden
+Filename: "powershell.exe"; Parameters: "-Command ""Get-CimInstance Win32_Process | Where-Object {{ $_.CommandLine -like '*app.py*' }} | Stop-Process -Force -ErrorAction SilentlyContinue"""; Flags: runhidden

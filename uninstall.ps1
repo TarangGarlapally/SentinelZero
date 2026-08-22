@@ -5,21 +5,18 @@ Write-Host "============================================================" -Foreg
 Write-Host "      Sentinel Zero - Complete Uninstaller & Cleanup        " -ForegroundColor Red
 Write-Host "============================================================" -ForegroundColor Red
 
-# 1. Force-kill all Sentinel Zero & Python background processes
+# 1. Force-kill only application processes (safely exclude uninstaller)
 Write-Host "[*] Force-terminating all active background Sentinel Zero processes..." -ForegroundColor Yellow
 
-# Kill SentinelZero.exe binary processes
-Get-Process | Where-Object { $_.ProcessName -like "*SentinelZero*" } | Stop-Process -Force -ErrorAction SilentlyContinue
-
-# Kill python / pythonw processes running app.py
-Get-CimInstance Win32_Process | Where-Object { $_.CommandLine -like "*app.py*" -or $_.CommandLine -like "*SentinelZero*" } | ForEach-Object {
-    Write-Host "   - Killing PID $($_.ProcessId): $($_.CommandLine)" -ForegroundColor Red
+$myPid = $PID
+Get-CimInstance Win32_Process | Where-Object { 
+    $_.ProcessId -ne $myPid -and 
+    $_.CommandLine -notlike "*uninstall*" -and 
+    ($_.CommandLine -like "*app.py*" -or $_.Name -eq "SentinelZero.exe") 
+} | ForEach-Object {
+    Write-Host "   - Stopping active process PID $($_.ProcessId): $($_.Name)" -ForegroundColor Yellow
     Stop-Process -Id $_.ProcessId -Force -ErrorAction SilentlyContinue
 }
-
-# Additional fallback taskkill
-taskkill /F /IM "SentinelZero.exe" 2>$null
-powershell -Command "Get-Process | Where-Object { $_.Path -like '*python*' -and $_.CommandLine -like '*app.py*' } | Stop-Process -Force" 2>$null
 
 # 2. Deregister Windows Autostart Registry Keys
 Write-Host "[*] Deregistering Windows Autostart entries..." -ForegroundColor Yellow
@@ -64,5 +61,5 @@ foreach ($p in $progDirs) {
 }
 
 Write-Host "============================================================" -ForegroundColor Green
-Write-Host " [SUCCESS] Sentinel Zero & background processes completely terminated and uninstalled!" -ForegroundColor Green
+Write-Host " [SUCCESS] Sentinel Zero completely uninstalled & cleaned!" -ForegroundColor Green
 Write-Host "============================================================" -ForegroundColor Green
